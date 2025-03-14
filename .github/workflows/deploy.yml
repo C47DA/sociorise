@@ -41,15 +41,27 @@ jobs:
           echo "Current directory: $(pwd)"
           echo "Directory contents:"
           ls -la
+          echo "Checking directory structure:"
+          find . -type d
           echo "Checking FTP connection..."
           lftp -e "set ssl:verify-certificate no; open ftp://${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_PASSWORD }}@216.158.67.172; ls; quit" || echo "FTP connection failed"
         
+      - name: Prepare Directory Structure
+        run: |
+          mkdir -p deploy/public_html
+          cp -r * deploy/public_html/ 2>/dev/null || true
+          cp -r .htaccess deploy/public_html/ 2>/dev/null || true
+          cd deploy/public_html
+          echo "Checking final structure:"
+          ls -la
+          
       - name: 📂 Deploy to cPanel
         run: |
+          cd deploy
           lftp -e "
           set ssl:verify-certificate no;
           set net:timeout 10;
           set net:max-retries 3;
           open ftp://${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_PASSWORD }}@216.158.67.172;
-          mirror -R -e -v --ignore-time --parallel=10 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob node_modules/ --exclude-glob .env --exclude-glob .DS_Store --exclude-glob README.md --exclude-glob composer.lock --exclude-glob package-lock.json ./ /public_html/;
+          mirror -R -e -v --ignore-time --parallel=10 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob node_modules/ --exclude-glob .env --exclude-glob .DS_Store --exclude-glob README.md --exclude-glob composer.lock --exclude-glob package-lock.json public_html/ /public_html/;
           quit" 

@@ -3,6 +3,12 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Define the root path
+define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));
+
+// Set include path
+set_include_path(get_include_path() . PATH_SEPARATOR . ROOT_PATH);
+
 // Set error handler
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
     echo "Error [$errno]: $errstr in $errfile on line $errline";
@@ -18,9 +24,16 @@ set_exception_handler('customExceptionHandler');
 
 if(!defined('BASEPATH')) {
     define('BASEPATH', TRUE);
+    
+    // Check if init.php exists
+    $init_file = ROOT_PATH . '/app/init.php';
+    if (!file_exists($init_file)) {
+        die("Error: Required file $init_file not found. Current directory: " . getcwd());
+    }
+    
     try {
-        require_once __DIR__ . '/../app/init.php';
-        require_once __DIR__ . '/../app/session.php';
+        require_once $init_file;
+        require_once ROOT_PATH . '/app/session.php';
     } catch (Exception $e) {
         die("Error loading required files: " . $e->getMessage());
     }
