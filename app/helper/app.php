@@ -17,8 +17,19 @@ function route($index) {
     }
 }
 function site_url($url = false) {
-  //  $url = str_replace("admin","scriptlux-admin",$url);
-    return URL . '/' . $url;
+    // Ensure URL constant ends with a slash
+    $base_url = rtrim(URL, '/') . '/';
+    
+    // If no URL is provided, return the base URL
+    if ($url === false) {
+        return $base_url;
+    }
+    
+    // Remove leading slash from the URL if present
+    $url = ltrim($url, '/');
+    
+    // Return the complete URL
+    return $base_url . $url;
 }
 function GetIP() {
     if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")) $ip = getenv("HTTP_CLIENT_IP");

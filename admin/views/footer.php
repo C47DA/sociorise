@@ -46,6 +46,53 @@
 <script src="public/admin/sortable-animation.js"></script>
 <script src="https://itsjavi.com/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js"></script>
 <script src="public/admin/image-picker.min.js"></script>
+
+<!-- Debug script to fix button links -->
+<script type="text/javascript">
+  // Log any JavaScript errors
+  window.onerror = function(message, source, lineno, colno, error) {
+    console.error("Error: " + message + " at " + source + ":" + lineno);
+    return false;
+  };
+  
+  // Fix relative URLs in links
+  $(document).ready(function() {
+    // Get the base URL from the base tag
+    var baseUrl = $('head base').attr('href');
+    console.log("Base URL: " + baseUrl);
+    
+    // Fix links that don't have the full URL
+    $('a').each(function() {
+      var href = $(this).attr('href');
+      if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('javascript')) {
+        // Remove leading slash if present
+        href = href.replace(/^\//, '');
+        // Set the full URL
+        $(this).attr('href', baseUrl + href);
+        console.log("Fixed link: " + $(this).attr('href'));
+      }
+    });
+    
+    // Fix form actions
+    $('form').each(function() {
+      var action = $(this).attr('action');
+      if (action && !action.startsWith('http') && !action.startsWith('#')) {
+        // Remove leading slash if present
+        action = action.replace(/^\//, '');
+        // Set the full URL
+        $(this).attr('action', baseUrl + action);
+        console.log("Fixed form action: " + $(this).attr('action'));
+      }
+    });
+    
+    // Add click event listener to all buttons and links
+    $('button, a').on('click', function() {
+      console.log("Clicked element: ", this);
+      console.log("Href/data-href: ", $(this).attr('href') || $(this).attr('data-href'));
+    });
+  });
+</script>
+
  <script type="text/javascript">
 $(window).on('load', function() {
     $('#loading').hide();
@@ -256,22 +303,6 @@ iziToast.show({
 });
 }
 });
-});
-
-$("#activate_deactivate_curr_conv").click(function(){
-$.ajax({
-url:site_url+'admin/settings/currency-manager',
-data:'action=activate_deactivate_curr_conv',
-type:'POST',
-success:function(json){
-iziToast.show({
-    icon:'fa fa-check',
-    title: 'Success',
-    message: '',
-    color:'green',
-    position:'topCenter'
-});
-}
 });
 });
 

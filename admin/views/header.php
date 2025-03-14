@@ -4,7 +4,7 @@
 <head>
     <meta charset="big5">
 
-    <base href="<?= site_url() ?>">
+    <base href="<?= rtrim(site_url(), '/') ?>/">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
