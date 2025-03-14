@@ -16,6 +16,15 @@ jobs:
       - name: Install lftp
         run: sudo apt-get install lftp
         
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          php -r "unlink('composer-setup.php');"
+          
+      - name: Install Dependencies
+        run: composer install --no-dev --optimize-autoloader
+        
       - name: 📂 Deploy to cPanel
         run: |
           lftp -e "
