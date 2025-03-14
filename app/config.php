@@ -4,9 +4,10 @@ if (!defined('PATH')) {
 }
 
 // Site configuration
-define('SUBFOLDER', false);
-define('URL', 'https://sociorise.com');
+define('SUBFOLDER', true);
+define('URL', 'https://sociorise.com/admin');
 define('STYLESHEETS_URL', '//sociorise.com');
+define('BASE_URL', rtrim(URL, '/'));
 
 // Security settings
 define('ADMIN_EMAIL', 'admin@sociorise.com');

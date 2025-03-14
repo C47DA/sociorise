@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <base href="<?= rtrim(site_url(), '/') ?>/">
+    <base href="<?= ADMIN_BASE_URL ?>/">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,33 +39,30 @@
     </style>
 
     <!-- Deferred CSS loading -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="public/admin/bootstrap.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="public/admin/style.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="public/admin/toastDemo.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="public/admin/tooltip.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/bootstrap.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/toastDemo.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/tooltip.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" media="print" onload="this.media='all'">
     
     <!-- Fallback for browsers that don't support media="print" -->
     <noscript>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
-        <link rel="stylesheet" href="public/admin/bootstrap.css">
-        <link rel="stylesheet" href="public/admin/style.css">
-        <link rel="stylesheet" href="public/admin/toastDemo.css">
-        <link rel="stylesheet" href="public/admin/tooltip.css">
+        <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/bootstrap.css">
+        <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/style.css">
+        <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/toastDemo.css">
+        <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/tooltip.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css">
     </noscript>
 
     <!-- Deferred JavaScript loading -->
     <script src="https://kit.fontawesome.com/f9fbee3ddf.js" crossorigin="anonymous" defer></script>
-    <script src="public/admin/iziToast.min.js" defer></script>
+    <script src="<?= STYLESHEETS_URL ?>/public/admin/iziToast.min.js" defer></script>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/bootstrap.css">
 
-    <link rel="stylesheet" type="text/css" href="public/admin/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="public/admin/style.css">
-    <link rel="stylesheet" type="text/css" href="public/admin/toastDemo.css">
-	<link rel="stylesheet" type="text/css" href="public/admin/tooltip.css">
+    <link rel="stylesheet" type="text/css" href="<?= STYLESHEETS_URL ?>/public/admin/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= STYLESHEETS_URL ?>/public/admin/toastDemo.css">
+	<link rel="stylesheet" type="text/css" href="<?= STYLESHEETS_URL ?>/public/admin/tooltip.css">
 	
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
@@ -73,18 +70,18 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
 
 
-    <link rel="stylesheet" type="text/css" href="public/admin/tinytoggle.min.css" rel="stylesheet">
- <link rel="stylesheet" href="public/admin/iziToast.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= STYLESHEETS_URL ?>/public/admin/tinytoggle.min.css" rel="stylesheet">
+ <link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/public/admin/iziToast.min.css">
   <script src="https://kit.fontawesome.com/f9fbee3ddf.js" crossorigin="anonymous"></script>
-<script src="public/admin/iziToast.min.js"></script>
+<script src="<?= STYLESHEETS_URL ?>/public/admin/iziToast.min.js"></script>
 
   <link href="//gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
 <link rel="stylesheet" href="https://itsjavi.com/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css">
-<link rel="stylesheet" href="css/admin/image-picker.css">
-	<link href="css/admin/main.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="<?= STYLESHEETS_URL ?>/css/admin/image-picker.css">
+	<link href="<?= STYLESHEETS_URL ?>/css/admin/main.css" type="text/css" rel="stylesheet">
 	
 	
 	
@@ -1030,6 +1027,35 @@ li.active > a.nav-link {
 }
 
 </style>
+
+<script>
+    // Define base URL for JavaScript
+    var BASE_URL = '<?= ADMIN_BASE_URL ?>';
+    
+    // Fix relative URLs in links and forms
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fix links
+        document.querySelectorAll('a[href^="/"]').forEach(function(link) {
+            link.href = BASE_URL + link.getAttribute('href');
+        });
+        
+        // Fix forms
+        document.querySelectorAll('form[action^="/"]').forEach(function(form) {
+            form.action = BASE_URL + form.getAttribute('action');
+        });
+        
+        // Fix AJAX URLs
+        if (typeof $.ajaxSetup === 'function') {
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (settings.url && settings.url.startsWith('/')) {
+                        settings.url = BASE_URL + settings.url;
+                    }
+                }
+            });
+        }
+    });
+</script>
 </head>
 
 <body>

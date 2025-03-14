@@ -27,6 +27,11 @@ try {
         define('BASEPATH', true);
     }
     
+    // Define admin base URL
+    if (!defined('ADMIN_BASE_URL')) {
+        define('ADMIN_BASE_URL', rtrim(site_url('admin'), '/'));
+    }
+    
     // Debug session data
     if (isset($_GET['debug']) && $_GET['debug'] == 1) {
         echo "<pre>SESSION: ";
@@ -38,22 +43,26 @@ try {
     $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
     $script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '';
     $base_path = rtrim(dirname($script_name), '/');
-    $path = substr(parse_url($request_uri, PHP_URL_PATH), strlen($base_path));
+    
+    // Remove query string from request URI
+    $request_uri = strtok($request_uri, '?');
+    
+    // Get the path relative to the base path
+    $path = substr($request_uri, strlen($base_path));
     $path = trim($path, '/');
+    
+    // Remove 'admin' from the beginning if present
+    if (strpos($path, 'admin/') === 0) {
+        $path = substr($path, 6);
+    }
+    
+    // Split path into parts
     $parts = explode('/', $path);
     
     // Set up route array
     $route = [];
-    if (count($parts) > 1) {
-        // Remove 'admin' from the beginning if present
-        if ($parts[0] === 'admin') {
-            array_shift($parts);
-        }
-        
-        // Add remaining parts to route array
-        foreach ($parts as $i => $part) {
-            $route[$i] = $part;
-        }
+    foreach ($parts as $i => $part) {
+        $route[$i] = $part;
     }
     
     // Get the requested admin page from URL or route
@@ -72,7 +81,7 @@ try {
     // Check if user is logged in as admin
     if (!isset($_SESSION["msmbilisim_adminlogin"]) || $_SESSION["msmbilisim_adminlogin"] != 1) {
         // Not logged in, redirect to login
-        header("Location: " . site_url('admin/login'));
+        header("Location: " . ADMIN_BASE_URL . "/login");
         exit();
     }
     
@@ -83,7 +92,7 @@ try {
     
     if (!$admin) {
         session_destroy();
-        header("Location: " . site_url('admin/login'));
+        header("Location: " . ADMIN_BASE_URL . "/login");
         exit();
     }
     
@@ -93,7 +102,7 @@ try {
     // Check admin access
     if (!isset($access["admin_access"]) || $access["admin_access"] != 1) {
         session_destroy();
-        header("Location: " . site_url('admin/login'));
+        header("Location: " . ADMIN_BASE_URL . "/login");
         exit();
     }
     
