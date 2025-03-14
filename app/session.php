@@ -19,7 +19,7 @@ set_exception_handler('customExceptionHandler');
 // Function to check admin login status
 function is_admin_logged_in() {
     try {
-        if (!isset($_SESSION["msmbilisim_adminslogin"]) || $_SESSION["msmbilisim_adminslogin"] !== 1) {
+        if (!isset($_SESSION["msmbilisim_adminlogin"]) || $_SESSION["msmbilisim_adminlogin"] !== 1) {
             return false;
         }
         

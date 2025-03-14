@@ -19,7 +19,7 @@ $viewData = [
 ];
 
 // If already logged in, redirect to admin dashboard
-if (isset($_SESSION["msmbilisim_adminslogin"]) && $_SESSION["msmbilisim_adminslogin"] == 1) {
+if (isset($_SESSION["msmbilisim_adminlogin"]) && $_SESSION["msmbilisim_adminlogin"] == 1) {
     header("Location: " . site_url('admin'));
     exit();
 }
@@ -75,7 +75,7 @@ if ($_POST) {
 
                     if (!$viewData['error']) {
                         // Set session and cookies
-                        $_SESSION["msmbilisim_adminslogin"] = 1;
+                        $_SESSION["msmbilisim_adminlogin"] = 1;
                         $_SESSION["msmbilisim_adminid"] = $admin["admin_id"];
                         $_SESSION["msmbilisim_adminpass"] = $pass;
                         $_SESSION["recaptcha"] = false;

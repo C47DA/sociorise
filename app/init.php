@@ -92,7 +92,7 @@ if( isset($_COOKIE["a_id"]) && isset($_COOKIE["a_login"]) && isset($_COOKIE["a_p
   $password = $admin["password"];
 
   if( @$_COOKIE["a_password"] == $password ):
-    $_SESSION["msmbilisim_adminslogin"]      = 1;
+    $_SESSION["msmbilisim_adminlogin"]      = 1;
     $_SESSION["msmbilisim_adminid"]         = $admin["admin_id"];
     $_SESSION["msmbilisim_adminpass"]       = $admin["password"];
       if( $access["admin_access"] ):
@@ -102,7 +102,6 @@ if( isset($_COOKIE["a_id"]) && isset($_COOKIE["a_login"]) && isset($_COOKIE["a_p
     unset($_SESSION["msmbilisim_adminlogin"]);
     unset($_SESSION["msmbilisim_adminid"]);
     unset($_SESSION["msmbilisim_adminpass"]);
-    unset($_SESSION["msmbilisim_adminlogin"]);
     unset($_SESSION);
     setcookie("a_id", $admin["admin_id"], time()-(60*60*24*7), '/', null, null, true );
     setcookie("a_password", $admin["password"], time()-(60*60*24*7), '/', null, null, true );
@@ -189,7 +188,7 @@ $admin = isset($_SESSION["msmbilisim_adminid"]) ? $conn->prepare("SELECT * FROM 
 if($admin) {
     $admin->execute(array("id"=>$_SESSION["msmbilisim_adminid"] ));
     $admin = $admin->fetch(PDO::FETCH_ASSOC);
-    $admin['auth'] = $_SESSION["msmbilisim_adminslogin"];
+    $admin['auth'] = $_SESSION["msmbilisim_adminlogin"];
     $admin["access"] = json_decode($admin["access"],true);
 }
 
