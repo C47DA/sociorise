@@ -13,21 +13,13 @@ jobs:
         with:
           fetch-depth: 0
       
+      - name: Install lftp
+        run: sudo apt-get install lftp
+        
       - name: 📂 Deploy to cPanel
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: 216.158.67.172
-          username: ${{ secrets.CPANEL_USERNAME }}
-          password: ${{ secrets.CPANEL_PASSWORD }}
-          server-dir: /public_html/
-          dangerous-clean-slate: true
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.env*
-            **/.DS_Store
-            **/README.md
-            **/composer.lock
-            **/package-lock.json
-          log-level: verbose 
+        run: |
+          lftp -e "
+          set ssl:verify-certificate no;
+          open ftp://${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_PASSWORD }}@216.158.67.172;
+          mirror -R -e -v --ignore-time --parallel=10 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob node_modules/ --exclude-glob .env --exclude-glob .DS_Store --exclude-glob README.md --exclude-glob composer.lock --exclude-glob package-lock.json ./ /public_html/;
+          quit" 
