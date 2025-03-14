@@ -13,19 +13,17 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
-
-      - name: Deploy to cPanel
-        uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+      - name: 📂 Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          ftp_host: "216.158.67.172"
-          ftp_username: ${{ secrets.CPANEL_USERNAME }}
-          ftp_password: ${{ secrets.CPANEL_PASSWORD }}
-          local_source_dir: "."
-          dist_target_dir: "/home/socioris/public_html"
-          delete: "false"
-          exclude: "^.git/|^.github/|^node_modules/|.env|.env.example|.gitignore|README.md" 
+          server: 216.158.67.172
+          username: ${{ secrets.CPANEL_USERNAME }}
+          password: ${{ secrets.CPANEL_PASSWORD }}
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            README.md
+            .env
+            .env.example 
