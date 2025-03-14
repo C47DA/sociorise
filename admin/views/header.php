@@ -1015,14 +1015,12 @@ aria-expanded="false" aria-controls="navbar">
 <div id="navbar" class="collapse navbar-collapse">
 
 <ul class="nav navbar-nav navbar-left-block">
-<?php if ($admin["access"]["admin_access"]  && $_SESSION["msmbilisim_adminlogin"]) : ?>
+<?php if (isset($admin["access"]["admin_access"]) && isset($_SESSION["msmbilisim_adminlogin"]) && $admin["access"]["admin_access"] && $_SESSION["msmbilisim_adminlogin"]) : ?>
 
-
-
-<?php if ($admin["access"]["admin_access"]): ?>
+<?php if (isset($admin["access"]["admin_access"]) && $admin["access"]["admin_access"]): ?>
 <li class="<?php if(route(1) == "index"): echo 'active' ; endif; ?>">
-<a class="ajax-link"
-href="<?php echo site_url("admin") ?>"><img height="15" width="15" src="img/admin/dashboard.png">  Admin Dashboard</a>
+<a class="ajax-link" href="<?php echo site_url("admin") ?>">
+<img height="15" width="15" src="img/admin/dashboard.png">  Admin Dashboard</a>
 </li>
 <?php endif; ?>
 
