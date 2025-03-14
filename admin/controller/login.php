@@ -1,6 +1,10 @@
 <?php
 use PragmaRX\Google2FA\Google2FA;
 
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Ensure we have access to required functions and variables
 if (!function_exists('site_url') || !isset($conn) || !isset($settings)) {
     require_once dirname(__FILE__) . '/../../app/init.php';
@@ -96,11 +100,16 @@ if ($_POST) {
 
                         // Redirect based on 2FA status
                         if ($admin["two_factor"] == 1) {
+                            // Force session write before redirect
+                            session_write_close();
                             header("Location: " . site_url('admin'));
+                            exit();
                         } else {
+                            // Force session write before redirect
+                            session_write_close();
                             header("Location: " . site_url('admin/activate-google-2fa'));
+                            exit();
                         }
-                        exit();
                     }
                 } else {
                     $viewData['error'] = true;

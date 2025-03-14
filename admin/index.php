@@ -27,6 +27,13 @@ try {
         define('BASEPATH', true);
     }
     
+    // Debug session data
+    if (isset($_GET['debug']) && $_GET['debug'] == 1) {
+        echo "<pre>SESSION: ";
+        print_r($_SESSION);
+        echo "</pre>";
+    }
+    
     // Get the requested admin page from URL
     $admin_page = isset($_GET['route']) ? $_GET['route'] : (isset($route[1]) ? $route[1] : "index");
     
@@ -52,7 +59,17 @@ try {
     $admin->execute(array("id" => $_SESSION["msmbilisim_adminid"]));
     $admin = $admin->fetch(PDO::FETCH_ASSOC);
     
-    if (!$admin || !isset($admin["access"]["admin_access"]) || $admin["access"]["admin_access"] != 1) {
+    if (!$admin) {
+        session_destroy();
+        header("Location: " . site_url('admin/login'));
+        exit();
+    }
+    
+    // Parse access JSON
+    $access = json_decode($admin["access"], true);
+    
+    // Check admin access
+    if (!isset($access["admin_access"]) || $access["admin_access"] != 1) {
         session_destroy();
         header("Location: " . site_url('admin/login'));
         exit();

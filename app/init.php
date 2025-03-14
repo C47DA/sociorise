@@ -92,12 +92,9 @@ if( isset($_COOKIE["a_id"]) && isset($_COOKIE["a_login"]) && isset($_COOKIE["a_p
   $password = $admin["password"];
 
   if( @$_COOKIE["a_password"] == $password ):
-    $_SESSION["msmbilisim_adminlogin"]      = 1;
-    $_SESSION["msmbilisim_adminid"]         = $admin["admin_id"];
-    $_SESSION["msmbilisim_adminpass"]       = $admin["password"];
-      if( $access["admin_access"] ):
-        $_SESSION["msmbilisim_adminlogin"] = 1;
-      endif;
+    $_SESSION["msmbilisim_adminlogin"] = 1;
+    $_SESSION["msmbilisim_adminid"] = $admin["admin_id"];
+    $_SESSION["msmbilisim_adminpass"] = $admin["password"];
   else:
     unset($_SESSION["msmbilisim_adminlogin"]);
     unset($_SESSION["msmbilisim_adminid"]);
