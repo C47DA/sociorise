@@ -16,37 +16,6 @@ function customExceptionHandler($exception) {
 }
 set_exception_handler('customExceptionHandler');
 
-// Set session parameters
-try {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.use_only_cookies', 1);
-    ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
-    ini_set('session.cookie_samesite', 'Lax');
-    ini_set('session.gc_maxlifetime', 3600); // 1 hour
-    ini_set('session.cookie_lifetime', 3600); // 1 hour
-    ini_set('session.save_handler', 'files');
-    
-    // Ensure session directory exists and is writable
-    $session_path = sys_get_temp_dir();
-    if (!is_dir($session_path) || !is_writable($session_path)) {
-        $session_path = '/tmp';
-    }
-    ini_set('session.save_path', $session_path);
-} catch (Exception $e) {
-    error_log("Error setting session parameters: " . $e->getMessage());
-}
-
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    try {
-        if (!headers_sent()) {
-            session_start();
-        }
-    } catch (Exception $e) {
-        error_log("Error starting session: " . $e->getMessage());
-    }
-}
-
 // Function to check admin login status
 function is_admin_logged_in() {
     try {

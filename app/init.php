@@ -9,7 +9,26 @@ if (!defined('PATH')) {
     define('PATH', realpath(dirname(__FILE__) . '/../'));
 }
 
-session_start();
+// Set session parameters before starting the session
+ini_set('session.cookie_httponly', 1);
+ini_set('session.use_only_cookies', 1);
+ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.gc_maxlifetime', 3600); // 1 hour
+ini_set('session.cookie_lifetime', 3600); // 1 hour
+ini_set('session.save_handler', 'files');
+
+// Ensure session directory exists and is writable
+$session_path = sys_get_temp_dir();
+if (!is_dir($session_path) || !is_writable($session_path)) {
+    $session_path = '/tmp';
+}
+ini_set('session.save_path', $session_path);
+
+// Now start the session
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+    session_start();
+}
 ob_start();
 
 $config = require __DIR__.'/config.php';
