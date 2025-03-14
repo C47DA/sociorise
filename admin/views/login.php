@@ -40,17 +40,23 @@ body {font-family: Arial, sans-serif;}
 <div id="container"> 
    <div class="box"> 
     <div class="form-box"> 
-    
+     <?php 
+     // Initialize variables if not set
+     $success = $success ?? false;
+     $error = $error ?? false;
+     $successText = $successText ?? '';
+     $errorText = $errorText ?? '';
+     ?>
      
-     <?php if( isset($success) && $success ): ?>
+     <?php if($success): ?>
         <div class="alert alert-success"><?php echo htmlspecialchars($successText); ?></div>
      <?php endif; ?>
 
-     <?php if( isset($error) && $error ): ?>
+     <?php if($error): ?>
         <div class="alert alert-danger"><?php echo htmlspecialchars($errorText); ?></div>
      <?php endif; ?>
 
-     <form name="login-form" action="#" method="post"> 
+     <form name="login-form" action="" method="post"> 
       <div class"input-group"=""> 
        <div class="input-field"> 
         <i class="fa-solid fa-user"></i> 

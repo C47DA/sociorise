@@ -11,10 +11,12 @@ if (!defined('BASEPATH')) {
 }
 
 // Initialize variables
-$error = false;
-$errorText = "";
-$success = false;
-$successText = "";
+$viewData = [
+    'error' => false,
+    'errorText' => "",
+    'success' => false,
+    'successText' => ""
+];
 
 // If already logged in, redirect to admin dashboard
 if (isset($_SESSION["msmbilisim_adminslogin"]) && $_SESSION["msmbilisim_adminslogin"] == 1) {
@@ -36,17 +38,17 @@ if ($_POST) {
         $captcha_verify = json_decode($captcha_verify);
 
         if ($captcha_verify->success == false) {
-            $error = true;
-            $errorText = "Please verify that you are not a robot.";
+            $viewData['error'] = true;
+            $viewData['errorText'] = "Please verify that you are not a robot.";
             $_SESSION["recaptcha"] = true;
         }
     }
 
-    if (!$error) {
+    if (!$viewData['error']) {
         // Check if account is suspended
         if (countRow(["table" => "admins", "where" => ["username" => $username, "client_type" => 1]])) {
-            $error = true;
-            $errorText = "Your account is Suspended.";
+            $viewData['error'] = true;
+            $viewData['errorText'] = "Your account is Suspended.";
         } else {
             // Verify credentials
             $admin = $conn->prepare("SELECT * FROM admins WHERE username=:username && password=:password");
@@ -66,12 +68,12 @@ if ($_POST) {
                         $is_valid = $google2fa->verifyKey($admin["two_factor_secret_key"], $two_factor_code);
 
                         if (!$is_valid) {
-                            $error = true;
-                            $errorText = "Invalid 2FA Code.";
+                            $viewData['error'] = true;
+                            $viewData['errorText'] = "Invalid 2FA Code.";
                         }
                     }
 
-                    if (!$error) {
+                    if (!$viewData['error']) {
                         // Set session and cookies
                         $_SESSION["msmbilisim_adminslogin"] = 1;
                         $_SESSION["msmbilisim_adminid"] = $admin["admin_id"];
@@ -101,16 +103,19 @@ if ($_POST) {
                         exit();
                     }
                 } else {
-                    $error = true;
-                    $errorText = "You do not have admin access.";
+                    $viewData['error'] = true;
+                    $viewData['errorText'] = "You do not have admin access.";
                 }
             } else {
-                $error = true;
-                $errorText = "Invalid username or password.";
+                $viewData['error'] = true;
+                $viewData['errorText'] = "Invalid username or password.";
             }
         }
     }
 }
+
+// Extract variables for the view
+extract($viewData);
 
 // Load login view
 require admin_view('login');
