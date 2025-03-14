@@ -5,9 +5,8 @@ if (!defined('BASEPATH')) {
     define('BASEPATH', true);
 }
 
-if (!defined('PATH')) {
-    define('PATH', realpath(dirname(__FILE__) . '/../'));
-}
+// Load config first since it defines PATH
+$config = require __DIR__.'/config.php';
 
 // Set session parameters before starting the session
 ini_set('session.cookie_httponly', 1);
@@ -31,14 +30,10 @@ if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
 }
 ob_start();
 
-$config = require __DIR__.'/config.php';
-
 try {
-  $conn = new PDO("mysql:host=".$config["db"]["host"].";dbname=".$config["db"]["name"].";charset=".$config["db"]["charset"].";", $config["db"]["user"], $config["db"]["pass"] );
-//$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    $conn = new PDO("mysql:host=".$config["db"]["host"].";dbname=".$config["db"]["name"].";charset=".$config["db"]["charset"].";", $config["db"]["user"], $config["db"]["pass"] );
 } catch (PDOException $e) {
-  die($e->getMessage());
+    die($e->getMessage());
 }
 
 function get_currency_hash($code){

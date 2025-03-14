@@ -1,5 +1,7 @@
 <?php
-define('PATH', realpath('.'));
+if (!defined('PATH')) {
+    define('PATH', realpath(dirname(__FILE__) . '/../'));
+}
 define('SUBFOLDER', false);
 define('URL', 'https://sociorise.com' );
 define('STYLESHEETS_URL', '//sociorise.com' );
