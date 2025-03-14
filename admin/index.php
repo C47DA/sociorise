@@ -41,8 +41,19 @@ try {
     }
     
     // Check if user is logged in as admin
-    if (!function_exists('is_admin_logged_in') || !is_admin_logged_in()) {
+    if (!isset($_SESSION["msmbilisim_adminlogin"]) || $_SESSION["msmbilisim_adminlogin"] != 1) {
         // Not logged in, redirect to login
+        header("Location: " . site_url('admin/login'));
+        exit();
+    }
+    
+    // Get admin info
+    $admin = $conn->prepare("SELECT * FROM admins WHERE admin_id=:id");
+    $admin->execute(array("id" => $_SESSION["msmbilisim_adminid"]));
+    $admin = $admin->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$admin || !isset($admin["access"]["admin_access"]) || $admin["access"]["admin_access"] != 1) {
+        session_destroy();
         header("Location: " . site_url('admin/login'));
         exit();
     }
