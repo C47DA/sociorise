@@ -12,10 +12,10 @@ error_reporting(E_ERROR);  */
 error_reporting(0);
 return [
   'db' => [
-    'name'    =>  'socioris_idk1' ,
+    'name'    =>  'socioris_try1' ,
     'host'    =>  'localhost',
-    'user'    =>  'socioris_idk1' ,
-    'pass'    =>  'socioris_idk1' ,
+    'user'    =>  'socioris_try1' ,
+    'pass'    =>  'socioris_try1' ,
     'charset' =>  'utf8mb4'
   ]
 ];
