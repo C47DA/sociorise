@@ -3,55 +3,94 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Set error handler
+function customErrorHandler($errno, $errstr, $errfile, $errline) {
+    echo "Error [$errno]: $errstr in $errfile on line $errline";
+    return true;
+}
+set_error_handler('customErrorHandler');
+
+// Set exception handler
+function customExceptionHandler($exception) {
+    echo "Uncaught Exception: " . $exception->getMessage() . " in " . $exception->getFile() . " on line " . $exception->getLine();
+}
+set_exception_handler('customExceptionHandler');
+
 // Set session parameters
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_only_cookies', 1);
-ini_set('session.cookie_secure', 1);
-ini_set('session.cookie_samesite', 'Strict');
-ini_set('session.gc_maxlifetime', 3600); // 1 hour
-ini_set('session.cookie_lifetime', 3600); // 1 hour
+try {
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.cookie_secure', 1);
+    ini_set('session.cookie_samesite', 'Strict');
+    ini_set('session.gc_maxlifetime', 3600); // 1 hour
+    ini_set('session.cookie_lifetime', 3600); // 1 hour
+    ini_set('session.save_handler', 'files');
+    ini_set('session.save_path', sys_get_temp_dir());
+} catch (Exception $e) {
+    die("Error setting session parameters: " . $e->getMessage());
+}
 
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    try {
+        session_start();
+    } catch (Exception $e) {
+        die("Error starting session: " . $e->getMessage());
+    }
 }
 
 // Function to check admin login status
 function is_admin_logged_in() {
-    if (!isset($_SESSION["msmbilisim_adminslogin"]) || $_SESSION["msmbilisim_adminslogin"] != 1) {
+    try {
+        if (!isset($_SESSION["msmbilisim_adminslogin"]) || $_SESSION["msmbilisim_adminslogin"] != 1) {
+            return false;
+        }
+        
+        // Additional security check - verify session data
+        if (!isset($_SESSION["msmbilisim_adminid"]) || !isset($_SESSION["msmbilisim_adminpass"])) {
+            session_destroy();
+            return false;
+        }
+        
+        return true;
+    } catch (Exception $e) {
+        error_log("Error in is_admin_logged_in: " . $e->getMessage());
         return false;
     }
-    
-    // Additional security check - verify session data
-    if (!isset($_SESSION["msmbilisim_adminid"]) || !isset($_SESSION["msmbilisim_adminpass"])) {
-        session_destroy();
-        return false;
-    }
-    
-    return true;
 }
 
 // Function to check user login status
 function is_user_logged_in() {
-    if (!isset($_SESSION["msmbilisim_userlogin"]) || $_SESSION["msmbilisim_userlogin"] != 1) {
+    try {
+        if (!isset($_SESSION["msmbilisim_userlogin"]) || $_SESSION["msmbilisim_userlogin"] != 1) {
+            return false;
+        }
+        
+        // Additional security check - verify session data
+        if (!isset($_SESSION["msmbilisim_userid"]) || !isset($_SESSION["msmbilisim_userpass"])) {
+            session_destroy();
+            return false;
+        }
+        
+        return true;
+    } catch (Exception $e) {
+        error_log("Error in is_user_logged_in: " . $e->getMessage());
         return false;
     }
-    
-    // Additional security check - verify session data
-    if (!isset($_SESSION["msmbilisim_userid"]) || !isset($_SESSION["msmbilisim_userpass"])) {
-        session_destroy();
-        return false;
-    }
-    
-    return true;
 }
 
 // Function to require admin login
 function require_admin_login() {
-    if (!is_admin_logged_in()) {
-        // Clear any existing session data
-        session_unset();
-        session_destroy();
+    try {
+        if (!is_admin_logged_in()) {
+            // Clear any existing session data
+            session_unset();
+            session_destroy();
+            header("Location: /admin/login");
+            exit();
+        }
+    } catch (Exception $e) {
+        error_log("Error in require_admin_login: " . $e->getMessage());
         header("Location: /admin/login");
         exit();
     }
@@ -59,14 +98,20 @@ function require_admin_login() {
 
 // Function to log out admin
 function admin_logout() {
-    session_unset();
-    session_destroy();
-    
-    // Clear admin cookies
-    setcookie("a_login", '', time() - 3600, '/', null, null, true);
-    setcookie("a_id", '', time() - 3600, '/', null, null, true);
-    setcookie("a_password", '', time() - 3600, '/', null, null, true);
-    
-    header("Location: /admin/login");
-    exit();
+    try {
+        session_unset();
+        session_destroy();
+        
+        // Clear admin cookies
+        setcookie("a_login", '', time() - 3600, '/', null, null, true);
+        setcookie("a_id", '', time() - 3600, '/', null, null, true);
+        setcookie("a_password", '', time() - 3600, '/', null, null, true);
+        
+        header("Location: /admin/login");
+        exit();
+    } catch (Exception $e) {
+        error_log("Error in admin_logout: " . $e->getMessage());
+        header("Location: /admin/login");
+        exit();
+    }
 } 

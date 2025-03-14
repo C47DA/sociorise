@@ -15,6 +15,10 @@ php_value post_max_size 64M
 php_value max_execution_time 300
 php_value max_input_time 300
 php_value memory_limit 256M
+php_flag display_errors on
+php_value error_reporting E_ALL
+php_flag log_errors on
+php_value error_log "php_errors.log"
 php_flag session.cookie_httponly on
 php_flag session.use_only_cookies on
 
@@ -53,4 +57,8 @@ Options -Indexes
 RewriteRule ^admin/?$ admin/index.php [L]
 RewriteRule ^admin/login/?$ admin/index.php?route=login [L]
 RewriteRule ^admin/([^/]+)/?$ admin/index.php?route=$1 [L]
-RewriteRule ^admin/([^/]+)/([^/]+)/?$ admin/index.php?route=$1/$2 [L] 
+RewriteRule ^admin/([^/]+)/([^/]+)/?$ admin/index.php?route=$1/$2 [L]
+
+# Custom error pages
+ErrorDocument 500 /error.php
+ErrorDocument 404 /error.php 
