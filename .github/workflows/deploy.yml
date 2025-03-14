@@ -31,10 +31,20 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-dev --optimize-autoloader
         
+      - name: Debug Info
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          echo "Checking FTP connection..."
+          lftp -e "set ssl:verify-certificate no; open ftp://${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_PASSWORD }}@216.158.67.172; ls; quit" || echo "FTP connection failed"
+        
       - name: 📂 Deploy to cPanel
         run: |
           lftp -e "
           set ssl:verify-certificate no;
+          set net:timeout 10;
+          set net:max-retries 3;
           open ftp://${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_PASSWORD }}@216.158.67.172;
           mirror -R -e -v --ignore-time --parallel=10 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob node_modules/ --exclude-glob .env --exclude-glob .DS_Store --exclude-glob README.md --exclude-glob composer.lock --exclude-glob package-lock.json ./ /public_html/;
           quit" 
