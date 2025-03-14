@@ -20,10 +20,14 @@ jobs:
           username: ${{ secrets.CPANEL_USERNAME }}
           password: ${{ secrets.CPANEL_PASSWORD }}
           server-dir: /public_html/
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-            README.md
-            .env
-            .env.example 
+            **/.env*
+            **/.DS_Store
+            **/README.md
+            **/composer.lock
+            **/package-lock.json
+          log-level: verbose 
