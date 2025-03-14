@@ -1220,9 +1220,8 @@ function decrypt($ciphertext, $key)
     return openssl_decrypt($ciphertext, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
 }
 
-function generateKashierOrderHash($mid, $amount, $currency = "EGP", $orderId, $secret)
+function generateKashierOrderHash($mid, $amount, $orderId, $secret, $currency = "EGP")
 {
-
     $path = "/?payment=" . $mid . "." . $orderId . "." . $amount . "." . $currency;
 
     return hash_hmac('sha256', $path, $secret, false);

@@ -2,20 +2,65 @@
 <html lang="en">
 
 <head>
-    <meta charset="big5">
+    <meta charset="utf-8">
 
     <base href="<?= rtrim(site_url(), '/') ?>/">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
 <?= $settings["site_name"] ?>
     </title>
 
-   
+    <!-- Resource hints for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://use.fontawesome.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://code.jquery.com">
     
+    <!-- Critical CSS -->
+    <style>
+        /* Add critical CSS here */
+        body { margin: 0; padding: 0; }
+        #loading { 
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.7;
+            background-color: #fff;
+            z-index: 99;
+        }
+    </style>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <!-- Deferred CSS loading -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="public/admin/bootstrap.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="public/admin/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="public/admin/toastDemo.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="public/admin/tooltip.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Fallback for browsers that don't support media="print" -->
+    <noscript>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+        <link rel="stylesheet" href="public/admin/bootstrap.css">
+        <link rel="stylesheet" href="public/admin/style.css">
+        <link rel="stylesheet" href="public/admin/toastDemo.css">
+        <link rel="stylesheet" href="public/admin/tooltip.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css">
+    </noscript>
+
+    <!-- Deferred JavaScript loading -->
+    <script src="https://kit.fontawesome.com/f9fbee3ddf.js" crossorigin="anonymous" defer></script>
+    <script src="public/admin/iziToast.min.js" defer></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 
     <link rel="stylesheet" type="text/css" href="public/admin/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="public/admin/style.css">

@@ -27,70 +27,71 @@
      </div>
    </div>
   </div>
-  <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="//gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js" defer></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js" defer></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+  <script src="//unpkg.com/sweetalert/dist/sweetalert.min.js" defer></script>
+  <script src="//gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" defer></script>
  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js" defer></script>
 
-  <script src="public/admin/toastDemo.js"></script>
-  <script src="public/admin/script.js"></script>
-  <script src="public/admin/script-2.js"></script>
+  <script src="public/admin/toastDemo.js" defer></script>
+  <script src="public/admin/script.js" defer></script>
+  <script src="public/admin/script-2.js" defer></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src="public/admin/jquery.tinytoggle.min.js"></script>
+  <script src="public/admin/jquery.tinytoggle.min.js" defer></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-<script src="public/admin/sortable-animation.js"></script>
+<script src="public/admin/sortable-animation.js" defer></script>
 <script src="https://itsjavi.com/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js"></script>
-<script src="public/admin/image-picker.min.js"></script>
+<script src="public/admin/image-picker.min.js" defer></script>
 
 <!-- Debug script to fix button links -->
 <script type="text/javascript">
-  // Log any JavaScript errors
-  window.onerror = function(message, source, lineno, colno, error) {
-    console.error("Error: " + message + " at " + source + ":" + lineno);
-    return false;
-  };
-  
-  // Fix relative URLs in links
-  $(document).ready(function() {
-    // Get the base URL from the base tag
-    var baseUrl = $('head base').attr('href');
+document.addEventListener('DOMContentLoaded', function() {
+    // Log any JavaScript errors
+    window.onerror = function(message, source, lineno, colno, error) {
+        console.error("Error: " + message + " at " + source + ":" + lineno);
+        return false;
+    };
+    
+    // Fix relative URLs in links
+    var baseUrl = document.querySelector('head base').getAttribute('href');
     console.log("Base URL: " + baseUrl);
     
     // Fix links that don't have the full URL
-    $('a').each(function() {
-      var href = $(this).attr('href');
-      if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('javascript')) {
-        // Remove leading slash if present
-        href = href.replace(/^\//, '');
-        // Set the full URL
-        $(this).attr('href', baseUrl + href);
-        console.log("Fixed link: " + $(this).attr('href'));
-      }
+    document.querySelectorAll('a').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('javascript')) {
+            // Remove leading slash if present
+            href = href.replace(/^\//, '');
+            // Set the full URL
+            link.setAttribute('href', baseUrl + href);
+            console.log("Fixed link: " + link.getAttribute('href'));
+        }
     });
     
     // Fix form actions
-    $('form').each(function() {
-      var action = $(this).attr('action');
-      if (action && !action.startsWith('http') && !action.startsWith('#')) {
-        // Remove leading slash if present
-        action = action.replace(/^\//, '');
-        // Set the full URL
-        $(this).attr('action', baseUrl + action);
-        console.log("Fixed form action: " + $(this).attr('action'));
-      }
+    document.querySelectorAll('form').forEach(function(form) {
+        var action = form.getAttribute('action');
+        if (action && !action.startsWith('http') && !action.startsWith('#')) {
+            // Remove leading slash if present
+            action = action.replace(/^\//, '');
+            // Set the full URL
+            form.setAttribute('action', baseUrl + action);
+            console.log("Fixed form action: " + form.getAttribute('action'));
+        }
     });
     
     // Add click event listener to all buttons and links
-    $('button, a').on('click', function() {
-      console.log("Clicked element: ", this);
-      console.log("Href/data-href: ", $(this).attr('href') || $(this).attr('data-href'));
+    document.querySelectorAll('button, a').forEach(function(element) {
+        element.addEventListener('click', function() {
+            console.log("Clicked element: ", this);
+            console.log("Href/data-href: ", this.getAttribute('href') || this.getAttribute('data-href'));
+        });
     });
-  });
+});
 </script>
 
  <script type="text/javascript">

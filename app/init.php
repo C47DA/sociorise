@@ -28,12 +28,17 @@ ini_set('session.save_path', $session_path);
 if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
+
+// Start output buffering
 ob_start();
 
+// Database connection with error handling
 try {
-    $conn = new PDO("mysql:host=".$config["db"]["host"].";dbname=".$config["db"]["name"].";charset=".$config["db"]["charset"].";", $config["db"]["user"], $config["db"]["pass"] );
+    $dsn = "mysql:host=".$config["db"]["host"].";dbname=".$config["db"]["name"].";charset=".$config["db"]["charset"];
+    $conn = new PDO($dsn, $config["db"]["user"], $config["db"]["pass"], $config["db"]["options"]);
 } catch (PDOException $e) {
-    die($e->getMessage());
+    error_log("Database connection failed: " . $e->getMessage());
+    die("Database connection failed. Please try again later.");
 }
 
 function get_currency_hash($code){

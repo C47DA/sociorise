@@ -1,0 +1,35 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+/logs/
+
+# Cache
+*.cache
+/cache/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+
+# Deployment files
+deploy.sh
+deploy.bat 
