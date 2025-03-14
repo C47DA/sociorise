@@ -13,6 +13,12 @@ jobs:
         with:
           fetch-depth: 0
       
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, zip, fileinfo, gd, curl, json, session
+      
       - name: Install lftp
         run: sudo apt-get install lftp
         
