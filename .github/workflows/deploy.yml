@@ -9,17 +9,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
       - name: Deploy to cPanel
         uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
         with:
-          ftp_host: ${{ secrets.CPANEL_HOST }}
-          ftp_username: socioris
+          ftp_host: "216.158.67.172"
+          ftp_username: ${{ secrets.CPANEL_USERNAME }}
           ftp_password: ${{ secrets.CPANEL_PASSWORD }}
           local_source_dir: "."
           dist_target_dir: "public_html"
-          delete: "false"
-          exclude: "^.git/,^.github/,^node_modules/,.env,.DS_Store,README.md" 
+          exclude: "^.git/|^.github/|^node_modules/|.env|.env.example|.gitignore|README.md" 
