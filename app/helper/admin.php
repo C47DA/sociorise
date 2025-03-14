@@ -2,6 +2,8 @@
 
 function admin_controller($controllerName){
   $controllerName = $controllerName;
+  // Remove .php extension if already present
+  $controllerName = preg_replace('/\.php$/', '', $controllerName);
   $file_path = PATH.'/admin/controller/'.$controllerName.'.php';
   
   // Check if file exists
@@ -14,6 +16,8 @@ function admin_controller($controllerName){
 
 function admin_view($viewName){
   $viewName = $viewName;
+  // Remove .php extension if already present
+  $viewName = preg_replace('/\.php$/', '', $viewName);
   $file_path = PATH.'/admin/views/'.$viewName.'.php';
   
   // Check if file exists

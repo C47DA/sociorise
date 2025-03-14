@@ -103,7 +103,12 @@ try {
     }
     
     // Load the appropriate controller
-    $controller_file = __DIR__ . '/controller/' . $admin_page . '.php';
+    $controller_file = __DIR__ . '/controller/' . $admin_page;
+    // Add .php extension if not already present
+    if (!preg_match('/\.php$/', $controller_file)) {
+        $controller_file .= '.php';
+    }
+    
     if (file_exists($controller_file)) {
         try {
             require_once $controller_file;

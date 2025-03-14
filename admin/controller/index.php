@@ -57,7 +57,13 @@ try {
     // Check if the view file exists
     $view_file = admin_view('index');
     if (!file_exists($view_file)) {
-        throw new Exception("Admin dashboard view file not found: " . $view_file);
+        // Try to find the view file directly
+        $direct_view_file = PATH . '/admin/views/index.php';
+        if (file_exists($direct_view_file)) {
+            $view_file = $direct_view_file;
+        } else {
+            throw new Exception("Admin dashboard view file not found: " . $view_file);
+        }
     }
 
     // Load admin dashboard view
