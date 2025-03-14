@@ -1,0 +1,47 @@
+{% include 'header.twig' %}
+
+	<div class="container-fluid container-fluid-spacious">
+
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Tab Conetent Starts here -->
+					<div class="tab-content" id="pills-tabContent">
+						<!-- New Order Tab -->
+<div class="tab-pane fade active in" id="new-order" role="tabpanel" aria-labelledby="pills-home-tab">
+<div id="main-page" class="well well-float table-responsive">
+		{% if contentText %}
+{{ contentText }}
+{% endif %}
+
+      {% if error %}
+        <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ errorText }}
+        </div>
+      {% elseif success %}
+        <div class="alert alert-dismissible alert-success {% if site['rtl'] %} rtl-alert {% endif %}">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ successText }}
+        </div>
+      {% endif %}
+
+      <form method="post" action="/massorder">
+<div class="form-group">
+<label>One order per line in format</label>
+<textarea id="message" name="orders" rows="15" class="form-control" placeholder="service_id | link | quantity"></textarea>
+									</div>
+<input name="mass_order" value="mass_order" type="hidden">
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
+						</div>
+					</div>
+					<!-- End Tab Content  -->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% include 'footer.twig' %}

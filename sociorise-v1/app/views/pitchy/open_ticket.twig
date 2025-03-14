@@ -1,0 +1,91 @@
+{% include 'header.twig' %}
+	<div class="paddingbody"></div>
+<div class="container-fluid container-fluid-spacious">
+	<div class="col-md-12">
+
+<div class="well">
+      {% if error %}
+
+        <div class="alert alert-dismissible alert-danger">
+
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ errorText }}
+        </div>
+      {% endif %}
+      {% if success %}
+        <div class="alert alert-dismissible alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ successText }}
+        </div>
+      {% endif %}
+	<div class="titcket-title">
+		<div class="row">
+<div class="col-md-8">
+	{{ messageList['ticket']['subject'] }}
+{% if messageList["ticket"]["canmessage"] == 1 %} <span class="badge"> This request has been closed by the administrator</span></div> {% endif %} 
+</div>
+		</div>
+{% if messageList %}
+
+{% for message in messageList %}
+
+{% if message["support"] == 1 %}
+	<div class="row ticket-message-block ticket-message-right">
+		<div class="col-md-8">
+<div class="ticket-message">
+	<div class="message">{{ message["message"] }}</div>
+</div>
+<div class="info">
+	<strong>{{ user["username"] }}</strong>
+	<small class="text-muted">{{ message["time"] }}</small>
+</div>
+		</div>
+
+
+
+
+	</div>
+		
+{% elseif message["subject"] %}
+{% else %}
+
+	<div class="ticket-message-block ticket-message-right">
+		
+<div class="ticket-message">
+	<div class="message">{{ message["message"] }}</div>
+</div>
+<div class="info">
+	<strong>Support</strong>
+	<small class="text-muted">{{ message["time"] }}</small>
+</div>
+		
+	</div>
+
+
+
+</div>
+</div>
+{% endif %}
+
+                {% endfor %}
+              {% endif %}
+            {% if messageList['ticket']['canmessage'] == 2 %}
+              <div class="row">
+                  <div class="col-md-12">
+                    <form method="post" action="tickets/{{ messageList['ticket']['ticket_id'] }}">
+                      <div class="form-group panel-border-top"><br>
+                        <label for="message" class="control-label">Message</label>
+                        <textarea id="message" rows="5" class="form-control" name="message">{{ data["message"] }}</textarea>
+                      </div>
+                      <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                    </form>
+                  </div>
+                </div>
+             
+            {% endif %}
+	
+	
+</div>
+	</div>
+</div>
+{% include 'footer.twig' %}

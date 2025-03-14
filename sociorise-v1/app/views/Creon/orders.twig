@@ -1,0 +1,416 @@
+{% include 'header1.twig' %}
+
+
+
+
+
+
+
+
+
+<div class="inner-page" style="display: inline-block;">
+<section>
+<div class="container">
+<div class="search-panel">
+<form action="/orders/all" method="get" id="history-search">
+
+<div class="form-group">
+<div class="input-group">
+<input type="hidden" name="status" value="all">
+<input type="text" name="search" class="form-control" value="{{ search }}" placeholder="Search orders">
+<span class="input-group-btn">
+<button type="submit" class="btn btn-green"><i class="fa fa-search" aria-hidden="true"></i></button>
+</span>
+</div>
+</div>
+</form>
+</div>
+<div class="card my-orders-panel">
+<div class="card-body">
+<div class="tabs-wrapper">
+<ul class="nav nav-justified nav-tabs dragscroll horizontal ">
+	<li class="nav-item" >
+		<a {% if 'all' == status %}  class="nav-link active" {% endif %} class="nav-link" href="orders">All</a>
+		</li>
+        <li class="nav-item"><a {% if 'pending' == status %}  class="nav-link active" {% endif %} class="nav-link" href="orders/pending">{{ lang['orders.status.pending'] }}</a></li>
+        <li class="nav-item"><a {% if 'inprogress' == status %}  class="nav-link active" {% endif %} class="nav-link" href="orders/inprogress">{{ lang['orders.status.inprogress'] }}</a></li>
+        <li class="nav-item"><a {% if 'completed' == status %}  class="nav-link active" {% endif %} class="nav-link" href="orders/completed">{{ lang['orders.status.completed'] }}</a></li>
+        <li class="nav-item"><a {% if 'partial' == status %}  class="nav-link active" {% endif %} class="nav-link" href="orders/partial">{{ lang['orders.status.partial'] }}</a></li>
+        <li class="nav-item"><a {% if 'processing' == status %}  class="nav-link active" {% endif %} class="nav-link" href="orders/processing">{{ lang['orders.status.processing'] }}</a></li>
+        <li class="nav-item"><a {% if 'canceled' == status %}  class="nav-link active" {% endif %} class="nav-link" href="orders/canceled">{{ lang['orders.status.canceled'] }}</a></li>
+</ul>
+</div>
+
+ <div class="row">
+                <div class="col">
+                    <div class="orders-history__margin-table">
+                        <div class="table-bg component_table ">
+                            <div class="table-wr table-responsive">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>{{ lang['orders.id'] }}</th>
+              <th>{{ lang['orders.date'] }}</th>
+              <th width="20%">{{ lang['orders.link'] }}</th>
+              <th>{{ lang['orders.charge'] }}</th>
+              <th class="nowrap">{{ lang['orders.start.count'] }}</th>
+              <th>{{ lang['orders.quantity'] }}</th>
+              <th width="20%">{{ lang['orders.service'] }}</th>
+              <th>Status</th>
+              <th>Remains</th>
+<th></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for order in orders %}
+              <tr>
+<td>
+<span id="order-{{ order['id'] }}">{{ order['id'] }}</span>
+                                        <a>
+                                            <span
+                                                data-clip="true"
+                                                title="Order Id copied"
+                                                data-clipboard-action="copy"
+                                                data-clipboard-target="#order-{{ order['id'] }}"
+                                                class="fas fa-clone"></span>
+                                        </a>
+
+                                        
+{% if order['order_where'] == "api"  %}<a class="btn btn-actions">Api</a>{% endif %} </td>
+                <td>{{ order['date'] }}</td>
+                <td width="20%"><a target="_blank" href="{{ order['link'] }}">{{ order['link'] }}</a></td>
+<td><div style="width:90px;">{{order["charge"]}}</div></td>
+                <td class="nowrap">{{ order['start_count'] }}</td>
+                <td>{{ order['quantity'] }}</td>
+                <td><div class="hideextra" style="width:300px;">{{ order['service'] }}</div></td>
+                <td>{{ order['status'] }}</td>
+                <td>{{ order['remains'] }}</td>
+<td>
+{% if order["refillButton"] == "2" %}
+{% if order['status'] == "Completed"  %}
+
+{% if order['show_refill'] == "true"  %}
+<a href="orders/refill/{{order['id']}}" class="btn btn-success btn-sm">Refill</a>
+<br><br>
+{% endif %}
+{% endif %}
+{% endif %}
+{% if order["refillButton"] == "3" %}
+
+{% if order['status'] == "Completed"  %}
+
+{% if order['show_refill'] == "true"  %}
+<!--
+<div style="">
+<button data-toggle="tooltip" data-placement="left" title="" type="button" class="btn btn-success btn-sm" disabled="true">Refill</button></div>-->
+  <button data-toggle="tooltip" data-placement="top" data-placement="top" title="{{order['refillTimeLeft']}} {{ "left for refill" }}" class="btn btn-warning btn-sm">Refill</button>
+{% endif %}
+{% endif %}
+{% endif %}
+{% if order["refillButton"] == "4" %}
+
+
+
+{% if order['status'] == "Completed"  %}
+
+{% if order['show_refill'] == "true"  %}
+<button type="button" class="btn btn-info" disabled="true">{{"Refilling"}}</button>
+{% endif %}
+{% endif %}
+{% endif %}
+
+{% if order['cancelButton']   == true %}
+         
+
+
+                   <a href="orders/cancel/{{order['id']}}" class="btn btn-actions bg-danger">cancel</a>
+               {% endif %}
+
+                 </td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+
+      {% if pagination["count"] > 1 %}
+        <ul class="pagination">
+
+          {% if pagination["current"] != 1 %}
+            <li>
+              <a class="btn btn-actions" href="orders/{{ status }}/{{ pagination["previous"] }}{% if search %}?search={{ search }}{% endif %}" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% set r, l = 3, 3 %}
+
+          {% if pagination['current'] == 1 %}
+            {% set r = 7 %}
+          {% endif %}
+
+          {% if pagination['current'] == 2 %}
+            {% set r = 5 %}
+          {% endif %}
+
+          {% if pagination['current'] >= pagination['count'] %}
+            {% set l = 5 %}
+          {% endif %}
+
+          {% for page in 1..pagination["count"] %}
+            {% if page >= (pagination['current']-l) and page <= (pagination['current']+r) %}
+              <li{% if page == pagination['current'] %} class="active" {%endif%}><a class="btn btn-actions" 
+ href="orders/{{ status }}/{{ page }}{% if search %}?search={{ search }}{% endif %}">{{ page }}</a></li>
+            {%endif%}
+          {% endfor %}
+
+          {% if pagination['current'] < pagination['count'] %}
+            <li>
+              <a class="btn btn-actions" href="orders/{{ status }}/{{ pagination['next'] }}{% if search %}?search={{ search }}{% endif %}" aria-label="Next">
+                <span aria-hidden="true">»</span>
+              </a>
+            </li>
+          {% endif %}
+
+        </ul>
+      {% endif %}
+
+    </div>
+   </div></div>
+   </div></div></div></div></div>
+   </div</div></div>
+   </div></div></div>
+   </div>
+  {% if contentText2 %}
+{{ contentText2 }}
+{% endif %}
+
+
+<script>
+
+
+$(document).ready(function() {
+  var notifications = [];
+  $.ajax({
+    url: '/broadcast.php',
+    dataType: 'json',
+    success: function(data) {
+      notifications = data;
+      showNextNotification();
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log('Failed to retrieve broadcast notification');
+    }
+  });
+
+  function showNextNotification() {
+    if (notifications.length > 0) {
+      var notification = notifications.shift();
+      var notificationId = 'notification-' + notification.id;
+      if (getCookie(notificationId) === null) {
+        Swal.fire({
+          icon: notification.BROADCAST_ICON,
+          title: notification.BROADCAST_TITLE,
+          text: notification.BROADCAST_DESCRIPTION
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setCookie(notificationId, 'hidden', 30);
+            showNextNotification();
+          }
+        });
+      } else {
+        showNextNotification();
+      }
+    }
+  }
+
+  function getCookie(name) {
+    var cookieName = name + '=';
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if (cookie.indexOf(cookieName) === 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+    return null;
+  }
+
+  function setCookie(name, value, days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = '; expires=' + date.toUTCString();
+    document.cookie = name + '=' + value + expires + '; path=/';
+  }
+});
+
+
+</script>
+
+
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/underscore-min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/main.js"></script>
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/script.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+                    //No Alert
+                  $("#menu-toggle").click(function(e) {
+         e.preventDefault();
+         $("#wrapper").toggleClass("toggled");
+         });
+         if ($(window).width() < 767) {
+         $('#wrapper').removeClass('toggled');
+         } else {
+         $('#wrapper').addClass('toggled');
+         }
+         $('.customerSlider').slick({
+           dots: false,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.fb-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav2"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.yt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav3"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.int-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav4"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.twt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav5"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.snc-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav6"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.clientSlider').slick({
+           dots: true,
+           arrows: true,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           vertical: true,
+           infinite: false
+         });
+         $(window).scroll(function() {
+           if ($(document).scrollTop() > 100) {
+             $('#guest-nav').addClass('shrink');
+           } else {
+             $('#guest-nav').removeClass('shrink');
+           }
+         });
+         // for hover dropdown menu
+         $('ul.nav li.dropdown').hover(function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+         }, function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+         });
+
+
+         <!-- For scrolling Service table -->
+         $(".serNameButtons").find("a").click(function(e) {
+             e.preventDefault();
+             var section = $(this).attr("href");
+             $("html, body").animate({
+                 scrollTop: $(section).offset().top
+             }, 1500);
+         });
+         $('#glog').click(function(){
+            window.location.href='/login/google';
+         });
+      </script>
+      
+      <!-- end -->    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    <script type="text/javascript" src="js/panel/cerulean/script.js"></script>    <script type="text/javascript" src="js/main.js"></script>    <script type="text/javascript" src="js/panel/cerulean/bootstrap.js"></script>    <script type="text/javascript" src="js/panel/cerulean/main.js"></script>    <script type="text/javascript" src="js/datepicker/js/bootstrap-datepicker.min.js"></script>    <script type="text/javascript" src="js/datepicker/locales/bootstrap-datepicker.tr.min.js"></script><!--<script type="text/javascript" src="js/main.js?v=46"></script>-->
+<style>
+    body{
+        font-family: 'Titillium Web', sans-serif;
+    }
+</style>
+</body>
+</html>
+<script type="text/javascript">
+    (function () {
+        var options = {
+            whatsapp: "+91 6381234799", // WhatsApp number
+            call_to_action: "Message us", // Call to action
+            position: "left", // Position may be 'right' or 'left'
+        };
+        var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+    })();
+</script>
+{% include 'footer.twig' %}

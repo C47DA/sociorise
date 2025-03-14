@@ -1,0 +1,88 @@
+
+{% include 'header.twig' %}
+<div class="paddingbody"></div>
+<div class="container-fluid container-fluid-spacious">
+<div class="row">
+<div class="col-md-12">
+<div class="well well-float table-responsive" style="display:none;">
+</div>
+<div class="well well-float">
+<div class="row">
+<div class="col-md-12">
+<input type="text" id="searchService" placeholder="Search Services" class="form-control col-md-12" />
+</div>
+</div>
+</div>
+<div id="order-page" class="well well-float table-responsive">
+
+<table class="table ">
+<thead>
+<tr>
+<th>{{ lang['services.id'] }}</th>
+<th class="width-service-name">{{ lang['services.name'] }}</th>
+<th class="nowrap">{{ lang['services.price'] }}</th>
+<th class="nowrap">{{ lang['services.min'] }}</th>
+<th class="nowrap">{{ lang['services.max'] }}</th>
+<th class="nowrap">Description</th>
+</tr>
+</thead>
+<tbody>
+          {% for category in serviceCategory %}
+                <tr class="services-list-category-title service_cat_header">
+<td colspan="7" ><strong>
+    
+    {{ category["category_name"] }}
+    
+    </strong>
+
+
+                                                   </div>
+                                                </td>
+                                            </tr>
+                {% for service in category['services'] %}
+                  <tr>
+                    <td>{{ service["service_id"] }}</td>
+                    <td>{{ service["service_name"] }}</td>
+                    
+                    <td>
+{{ service["without_login_service_price"] }}
+</td>
+<td>{{ service["service_min"] }}</td>
+<td>{{ service["service_max"] }}</td>
+                     <td>
+                     <!-- Modal -->
+                        <div class="modal fade" id="service{{ service["service_id"] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"> {{ service["service_name"] }} </h5> 
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                              </div>
+                              <div class="modal-body text-left">
+                                <p class="detail-data details-split-959">
+              {{ service["service_description"] }}
+              </p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#service{{ service["service_id"] }}">View Details</button>
+                    
+                                           
+                  
+                        </td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+{% include 'footer.twig' %}

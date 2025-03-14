@@ -1,0 +1,244 @@
+{% include 'header.twig' %}
+
+
+         
+           
+<style>
+#service_description,#service_avg_time{padding-left:9.75pt;}#service_description,#service_avg_time{padding-bottom:9.75pt;}#service_avg_time,#service_description{padding-right:9.75pt;}#service_description,#service_avg_time{padding-top:9.75pt;}#service_description,#service_avg_time{border-radius:.625pc;}#service_description,#service_avg_time{color:#1a1c1c;}#service_avg_time,#service_description{box-shadow:.0625pc .0625pc 1px #d8eff0;}#service_description,#service_avg_time{background-color:#E6E6FA;}
+
+    </style>
+      
+    
+
+
+    
+
+
+<div id="block_19">
+    <div class="ticket-form">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container-fluid">
+            <div class="row px-lg-4 ticket-dialog__alignment">
+                  <div class="col-lg-12">
+                     <div class="component_content_card component_content_button component_content_headers">
+                      {% if contentText %}     <div class="card">
+                              <div class="new-order__content-text">
+                                  
+                                  	
+					
+					
+ 
+{{ contentText }}
+
+                                  
+                              <!--   <h1 style="text-align: center;"><strong><img src="https://images.irscdn.icu/js/nicedit/upload/26267171117017068keralafollow.gif" alt="" width="150" height="150" /></strong></h1>
+<h1 style="text-align: center;">&nbsp;</h1>
+<h2 style="text-align: center;"><em>Welcome To Favorite SMM</em></h2>
+<h2 style="text-align: center;"><strong><img src="https://images.irscdn.icu/js/nicedit/upload/14081361061012450180coollogo_com-7344148.gif" alt="" width="254" height="23" /></strong></h2>
+<p><strong><img style="display: block; margin-left: auto; margin-right: auto;" src="https://images.irscdn.icu/js/nicedit/upload/13758135220230327_103131.jpg" alt="" width="300" height="60" />&nbsp;</strong></p>
+<p>&nbsp;</p>
+<h4 style="text-align: center;"><span style="font-family: 'book antiqua', palatino, serif;">Any Query Please 
+<a href="https://api.whatsapp.com/send?phone=+916387853827&amp;text=hi">Contact on WhatsApp</a></span>&nbsp;</h4> -->
+                         
+                         
+                              </div>
+                           </div>{% endif %}
+                     </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div> 
+   
+<div id="block_16">
+    <div class="new_order-block">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <div class="col-lg-7 mb-3 mb-lg-0">
+                    <div class="component_form_group component_card component_radio_button">
+                        <div class="component_status_tabs mb-3">
+                            <div class="">
+                                <ul class="nav nav-pills tab">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#new-order" onclick="toggleTab('Normal',false)">🛍️ New Order</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link "  href="/massorder">⚖️ Mass Order</a>
+                                    </li>
+                                    <li class="nav-item lastLi" style="margin-left: auto;"><span readonly class="nav-link fixedOne" id="infoLi">💰 Balance :{{ user["balance"] }}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card">
+                                                        <div class="tab-content">
+                                <div id="new-order" class="tab-pane in active">
+                                    <div class="alert alert-success" role="alert" id="order-alert" style="margin: 5px;display:none">
+                                        <button type="button" class="close" id="order-alert-close" aria-hidden="true">⨉</button>
+                                        <legend id="al-title">Your</legend>
+                                        <h6 id="al-id-row"><strong>ID: </strong> <span id="al-id"></span></h6>
+                                        <h6 id="al-service-row"><strong> 📦 Services: </strong> <span id="al-service"></span></h6>
+                                        <h6 id="al-link-row"><strong>🔗 Link: </strong> <span id="al-link"></span></h6>
+                                        <h6 id="al-qty-row"><strong>⌛ Quantity: </strong> <span id="al-qty"></span></h6>
+                                        <h6 id="al-runs-row"><strong>0-10 Minutes: </strong> <span id="al-runs"></span></h6>
+                                        <h6 id="al-price-row"><strong>💰 Charge</strong> <span id="al-price"></span></h6>
+                                        <h6 id="al-disc-row"><strong>Cashback Earned </strong> <span id="al-disc"></span></h6>
+                                        <h6 id="al-bal-row"><strong>💰 Balance : </strong> <span id="al-bal"></span></h6>
+                                    </div>
+                                    <form action="/" method="post" id="order-form">
+                                       
+                                       
+                                        {% if error %}
+                     <div class="alert alert-dismissible alert-danger">
+                        {{ errorText }}
+                     </div>
+                     {% endif %}
+                     {% if data["order"]["success"] == 1 %}
+                     <div class="alert alert-dismissible alert-success">
+                        <strong> {{ lang["neworder.success.id"] }}: </strong> {{ data['order']['id'] }} <br>
+                        <strong> {{ lang["neworder.success.service"] }}: </strong> {{ data['order']['service'] }} <br>
+                        <strong> {{ lang["neworder.success.link"] }}: </strong> {{ data['order']['link'] }} <br>
+                        <strong> {{ lang["neworder.success.quantity"] }}: </strong> {{ data['order']['quantity'] }} <br>
+                        <strong> {{ lang["neworder.success.link"] }}: </strong> {{ data['order']['price'] }} <br>
+                        <strong> {{ lang["neworder.success.balance"] }}: </strong>{{ data['order']['balance'] }} <br>
+                     </div>
+                     {% endif %}
+                     {% if data["order"]["success"] == 2 %}
+                     <div class="alert alert-dismissible alert-success">
+                        <strong> {{ lang["neworder.success.id"] }}: </strong> {{ data['order']['id'] }} <br>
+                        <strong> {{ lang["neworder.success.service"] }}: </strong> {{ data['order']['service'] }} <br>
+                        <strong> {{ lang["neworder.success.username"] }}: </strong> {{ data['order']['link'] }} <br>
+                        <strong> {{ lang["neworder.success.quantity"] }}: </strong> {{ data['order']['min'] }} - {{ data['order']['max'] }} <br>
+                        <strong> {{ lang["neworder.success.posts"] }}: </strong> {{ data['order']['posts'] }} <br>
+                        <strong> {{ lang["neworder.success.delay"] }}: </strong>{{ data['order']['delay'] }} <br>
+                     </div>
+                     {% endif %}
+                     
+                     
+                                                                                
+                                            <div class="form-group">
+                                                <label for="service_id" class="control-label">🔰 Category </label>
+                                               <select class="form-control" id="neworder_category" name="categories" data-select="true" data-select-search="true" data-select-search-placeholder="Search" data-select-container="#select-category-container" tabindex="-1" aria-hidden="true">
+{{ category_html_simplify }}
+
+</select>
+                
+            
+            
+                                            <div class="form-group">
+                                                <label for="package_id" class="control-label"> 📦 Services</label>
+                                                 <select class="form-control" id="neworder_services" name="services" data-select="true" data-select-search="true" data-select-search-placeholder="Search" data-select-container="#select-service-container" tabindex="-1" aria-hidden="true">
+<option value="1">No services found in this category</option>
+</select>
+											
+                                       </div>
+                                       
+                                       
+  
+                                       
+                                          <div id="neworder_fields"></div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label for="charge" class="control-label"><i class="mdi mdi-currency-inr"></i> 💰 Charge</label>
+                                                 <input type="text" class="form-control" id="charge" value="" readonly>
+                                                <p id="not-enough-funds" style="display:none;color:red">💸 I am having an out of money experience.... Not enough funds on balance</p>
+                                            </div>
+                                                                                      
+                                                                                       {% if neworderTerms %}
+                        <div class="checkbox">
+                           <label>
+                           <input type="checkbox" name="neworder_check">{{ lang['neworder.recheck'] }}
+                           </label>
+                        </div>
+                        {% endif %}
+					
+					
+                                            <div class="form-group">
+                                                <button type="submit" id="btn-proceed" onclick="sendOrder()" class="btn btn-primary">📝 Place Order</button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                
+                                 <p>&nbsp;&nbsp;&nbsp;</p>                         	
+<br>
+			
+			
+				
+       
+      										
+       <div class="col-lg-7 mb-2">
+	
+					<div class="component_content_card component_content_button">
+						<div class="card">
+															<div class="new-order__content-image">
+  <img src="https://i.postimg.cc/SxYCTjGS/keralafollow.gif" class="img-fluid">
+																	</div>
+																						<div class="new-order__content-title">
+									<div class="position-relative">
+										<div>
+																							<p>🎉 Sale Is Live 🎉</p>
+																					</div>
+									</div>
+								</div>
+														<div class="new-order__content-text">
+																	<p><br></p>
+<p>Don’t wait. The time will never be just right.</p>
+<p>Unbelievable and unbeatable prices.</p>
+<p><br></p>
+<p><strong style="font-weight: bold">💎 APIs & Bigreseller Ask For Manual Rate</strong></p>
+															</div>
+													</div>
+					</div>
+				</div>
+			</div>
+			<p>&nbsp;&nbsp;&nbsp;</p>
+			<table class="table">
+												<thead>
+													<tr>
+ 
+														<th>Title</th>
+														<th class="width-service-name">Content</th>
+
+														<th class="nowrap">Date</th>
+													 
+
+
+													</tr>
+												</thead>
+												<tbody>
+{% for new in news %}
+<tr>
+<td> <img width="30" class="mr-1" src="/img/icons/{{ new['news_icon'] }}.png">{{ new['news_title'] }}</td>
+<td>
+
+{{ new['news_content'] }}
+</td>
+<td>{{ new['news_date'] }}</td>
+
+</tr>
+{% endfor %}
+
+
+</tbody>
+											</table>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+ 
+
+
+{% include 'footer.twig' %}

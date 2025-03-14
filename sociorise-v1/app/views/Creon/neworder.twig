@@ -1,0 +1,660 @@
+{% include 'header1.twig' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+<style>
+#service_description,#service_avg_time{padding-left:9.75pt;}#service_description,#service_avg_time{padding-bottom:9.75pt;}#service_avg_time,#service_description{padding-right:9.75pt;}#service_description,#service_avg_time{padding-top:9.75pt;}#service_description,#service_avg_time{border-radius:.625pc;}#service_description,#service_avg_time{color:#1a1c1c;}#service_avg_time,#service_description{box-shadow:.0625pc .0625pc 1px #1a1c1c;}#service_description,#service_avg_time{background-color:#FFFFFF;}
+
+    </style>
+  
+	<style>
+ .body .modal .modal-content {
+    background: #fff;
+    color: black;
+}
+
+.modal-header h5 {
+    color: black;
+}
+.modal-footer a {
+    color: #fff;
+}
+.modal-header{
+ border-bottom: none;
+}
+.modal-footer{
+ border-top: none;
+}
+ </style>
+            
+          <style>
+
+    .totals-block__card {
+    display: flex;
+}
+.totals-block__card-right {
+    width: 100%;
+}
+.totals-block__card-left {
+    width: 152px;
+    flex-basis: 152px;
+    padding-right: 12px;
+}
+.totals-block__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: content-box;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+ 
+  
+  
+.guest .navbar-default {
+	background-color: #3f00fd;
+	border: 0;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+	color: #ffffff;
+	background-color: transparent;
+}
+
+.guest .trans-nav {
+	background-color: transparent;
+	border: 0;
+	box-shadow: none;
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin: auto;
+}
+.guest .nav.navbar-nav li a {
+	font-size: 16px;
+	font-weight: 300;
+	border-radius: 100px;
+	min-width: 100px;
+	text-align: center;
+	padding: 11px 0;
+	margin: 8px 2.5px;
+}
+.guest .nav.navbar-nav li.active a, 
+.guest .nav.navbar-nav li a:hover,
+.guest .nav.navbar-nav li a:focus,
+.guest .nav.navbar-nav li.active a:hover {
+	background-color: #35c6ff;
+	color: #fff;
+}
+
+#block_93 {
+    position: relative;
+    min-height: 10px;
+    padding-bottom: 10px;
+    padding-top: 0;
+}
+#block_93 .bg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    background-image: none;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    opacity: 1;
+    filter: blur(0px);
+}
+#block_93 .bg:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+#block_93 .divider-top {
+    background-image: none;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    transform: rotateY(180deg);
+    background-repeat: repeat-x;
+    background-position: 0px 0px;
+    background-size: 100% 58px;
+    height: 58px;
+    z-index: 0;
+}
+#block_93 .divider-bottom {
+    background-image: none;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    transform: rotateY(180deg);
+    background-repeat: repeat-x;
+    background-position: 0px 0px;
+    background-size: 100% 58px;
+    height: 58px;
+    z-index: 0;
+}
+.container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+#block_93 .totals-block__card {
+    display: flex;
+}
+#block_93 .totals-block__card-left {
+    width: 152px;
+    flex-basis: 152px;
+    padding-right: 12px;
+}
+
+#block_93 .totals-block__icon-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#block_93 .totals-block__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: content-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+#block_93 .totals-block__icon-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#block_93 .totals-block__card-left {
+    width: 152px;
+    flex-basis: 152px;
+    padding-right: 12px;
+}
+#block_93 .totals-block__card-right {
+    width: 100%;
+}
+#block_93 .totals-block__card {
+    display: flex;
+}
+</style>
+
+
+
+
+
+
+
+
+<div class="inner-page" style="display: inline-block;">
+<section>
+<div class="container">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.17/dist/css/bootstrap-select.min.css">
+<style type="text/css">
+  .bootbox-body {
+      word-break: break-all;
+  }
+  .alert-blue {
+      color: #3B653C;
+      background-color: #DDECD8;
+      border-color: #e9ebee;
+  }
+  .tile {
+      position: relative;
+      padding: 14px;
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: #e9ebee;
+      border-radius: 6px;
+  }
+  .tile {
+      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+      border: 0;
+  }
+  .tile-title{
+    font-size: 20px;
+  }
+
+  
+  
+</style>
+
+
+<div class="alert alert-blue" role="alert" style="margin-bottom: 2px;">
+<div class="new-order__content-title" style="box-sizing: border-box; margin-bottom: 10px; ">
+<div class="position-relative" style="box-sizing: border-box; position: relative !important;">
+<div style="box-sizing: border-box;">
+
+
+
+
+      <!-- Main variables *content* -->
+     
+	{% if contentText %}
+{{ contentText }}
+{% endif %}
+</div>
+</div>
+</div>
+</div>
+<style>
+
+
+i {
+margin-right: 5px;
+    margin-left: 5px;
+    font-size: 19px;
+margin-top: 19px;
+margin-bottom: 0px;
+}
+</style>
+
+<div class="row" style="margin-top: 10px;">
+<div class="col-lg">
+<div class="card order-dashboard">
+<div class="card-body">
+
+<div class="icon rounded-circle"><i class="fa fa-clone"></i></div>
+
+<div class="content-box">
+<div class="title">Total Orders at {{ site["site_name"]  }}</div>
+<div class="numbers">{{totalorders}}</div>
+</div>
+<div class="des-sec"><marquee><b>🌺5+ years experience providing cheapest Digital Marketing & SMM services!🔥</b></marquee></div>
+</div>
+</div>
+</div>
+<div class="col-lg">
+<div class="card order-dashboard">
+<div class="card-body">
+<div class="icon rounded-circle">
+<i class="fa fa-wallet"></i>
+</div>
+<div class="right-side">
+<label>looking to Deposit? </label>
+<a href="/addfunds" class="btn btn-green">💰 ADD MONEY 💰 </a>
+</div>
+<div class="content-box">
+<p> <b><h6><marquee>🤗Your Account Balance : {{ user['balance'] }}🤗 😇 😳Your Total Spendings : {{ user['spent'] }}😳</marquee></b></h6></p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+      
+       <div class="row" style="margin-top: 40px;"> 
+      <div class="col-lg-6"> 
+       <div class="card"> 
+        <div class="card-body pt-0"> 
+         
+  {% if error %}
+      <div class="alert alert-dismissible alert-danger">
+        {{ errorText }}
+      </div>
+    {% endif %}
+
+{% if data["order"]["success"] == 1 %}
+<div class="order-success-card" id="order-success-card">
+<center>
+
+<h2>Your order has been placed.</h2>
+<div class="order-details">
+<p><span class="service-name">
+<b>Service :</b><br/>{{data['order']['service']}}</span></p>
+<p><span class="link"><b>Link :</b><br /><a href="{{data['order']['link']}}">{{data['order']['link']}}</a></span></p>
+<p><span class="paid-amount"><b>You paid :</b>  <span style="color:#7743DB">{{ data['order']['price'] }}</span></span><span class="quantity"><b>Quantity :</b>  <span style="color:#E0144C">{{data['order']['quantity']}}</span></span></p>
+</div>
+<div class="user-details">
+<p>Order ID :  {{data['order']['id']}}</p>
+<p>Remaining balance :  {{ data['order']['balance'] }}</p>
+</div>
+<html>    
+    <body> 
+    
+     <a href="/neworder">  
+       <button>OK</button>  
+     </a>
+    
+    </body>    
+</html>
+
+</div>
+<script>
+
+setTimeout(function(){
+var el = $("#order-success-card");
+el.addClass("order-success-card-active");
+},1000);
+function closeOrderReceiptCard(){
+
+var el = document.getElementById("order-success-card");
+
+el.classList.remove("order-success-card-active");
+}
+</script>
+
+    {% endif %}
+    {% if data["order"]["success"] == 2 %}
+      <div class="alert alert-dismissible alert-success">
+         <strong> {{ lang["neworder.success.id"] }}: </strong> {{ data['order']['id'] }} <br>
+         <strong> {{ lang["neworder.success.service"] }}: </strong> {{ data['order']['service'] }} <br>
+         <strong> {{ lang["neworder.success.username"] }}: </strong> {{ data['order']['link'] }} <br>
+         <strong> {{ lang["neworder.success.quantity"] }}: </strong> {{ data['order']['min'] }} - {{ data['order']['max'] }} <br>
+         <strong> {{ lang["neworder.success.posts"] }}: </strong> {{ data['order']['posts'] }} <br>
+         <strong> {{ lang["neworder.success.delay"] }}: </strong>{{ data['order']['delay'] }} <br>
+       </div>
+    {% endif %}
+
+     <div class="well">
+
+	
+        <form method="post" action="">
+<div class="component_button_forms">
+            <div class="form-group">
+<label for="orderform-category" class="control-label">🌲{{ lang["neworder.category"] }}🌲</label>
+
+<select class="form-control" id="neworder_category" name="categories" data-select="true" data-select-search="true" data-select-search-placeholder="Search" data-select-container="#select-category-container" tabindex="-1" aria-hidden="true">
+{{ category_html_simplify }}
+
+</select>
+<div id="select-category-container" class="position-relative"></div>
+</div>
+</div>
+            <div class="form-group">
+<label for="orderform-service" class="control-label">🌿{{ lang["neworder.service"] }}🌿</label>
+<select class="form-control" id="neworder_services" name="services" data-select="true" data-select-search="true" data-select-search-placeholder="Search" data-select-container="#select-service-container" tabindex="-1" aria-hidden="true">
+<option value="1">No services found in this category</option>
+</select>
+<div id="select-service-container" class="position-relative"></div>
+            </div>
+
+
+              <div id="neworder_fields"></div>
+
+                                                        
+                                                <div class="form-group"> 
+              <label for="charge" class="control-label"><i class="mdi mdi-currency-inr"></i> You will pay</label> 
+                                                 <input type="text" class="form-control" id="charge" value="" readonly>
+                                                <p id="not-enough-funds" style="display:none;color:red">💸 I am having an out of money experience.... Not enough funds on balance</p>
+                                            </div>
+                                                                                      
+                                                                                       {% if neworderTerms %}
+                        <div class="checkbox">
+                           <label>
+                           <input type="checkbox" name="neworder_check">{{ lang['neworder.recheck'] }}
+                           </label>
+                        </div>
+                        {% endif %}
+                    <center>
+<div class="checker">
+
+<span><input type="checkbox" name="check" id="check" required='true'> 📍Yes, i have confirmed the entered order details correct place my order.</a></span>
+
+</div>
+
+    </center>
+
+
+                                        <button type="submit" class="btn btn-block btn-primary" onclick="clickme()"><font color="#00FF00"><b>🕊️{{ lang["neworder.button"] }}🕊️</b></button>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		  <script type="text/javascript">
+		  function clickme()
+		  {
+		  swal({
+  title: "Hlo My dear Friend",
+  text: "Your order fetching to our server pls wait.....!",
+  icon: "info",
+  buttons: false,
+});
+}
+</script>
+        </form>
+                </div> <!-- new order tab end -->
+                
+             <!-- mas order tab end -->
+                
+              </div>
+            </div>
+          </div>
+        </div> <!-- prvi col-lg end -->
+        <br>
+        
+<div class="card bg-white latest-news-panel">
+<div class="card-header">
+<div class="card-title">
+<i class="fa fa-newspaper"></i> LATEST NEWS
+</div>
+</div><div class="card-body" id="newOrderContent" style="max-height: 400px;">
+<div class="news-list-panel">
+
+
+<div class="news-type-list">
+<div class="news-type-list-item">
+
+
+<ul>
+		<hr style="width:50%;text-align:left;margin-left:0">
+		          {% for new in news %}
+				   
+		  <br>
+            <span class="badge badge-green date">{{ new['news_date'] }}</span></br>
+			
+			</li>
+			
+<br><div class="title blue"><img src="/img/icons/{{ new['news_icon'] }}.png">  {{ new['news_title'] }}</div></br>
+		
+         
+			
+			
+			
+            
+            
+            <h5><span class="desc">{{ new['news_content'] }}</span></h5>
+			<hr style="width:50%;text-align:left;margin-left:0">
+          </li>
+                {% endfor %}    
+
+      
+    
+        </ul>
+                  <p><i class="blue">- {{ site["site_name"] }}</i></p>
+                </div>
+              </div>
+                          </div>
+          </div>
+          
+        
+                </div>    
+			  </div>
+            </div>
+          </div>
+
+<!-- <div class="row justify-content-center payments-panel" style="margin-top: 50px;">
+<div class="col-md-10 col-md-offset-1 card">
+<div class="text-center">
+</div>
+</div>
+</div>
+</div>
+</section>
+</div> -->
+
+<script type="text/javascript">
+                $("#lang a").click(function(e) {
+            swal({
+              position: 'center',
+              title: 'Select Language',
+              html:'<table><tbody><tr><td><a class="dropdown-item clicklang" href="#" data-locale="af">Afrikaans</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sq">Albanian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="am">Amharic</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ar">Arabic</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="hy">Armenian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="az">Azerbaijani</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="eu">Basque</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="be">Belarusian</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="bn">Bengali</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="bs">Bosnian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="bg">Bulgarian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ca">Catalan</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="ceb">Cebuano</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ny">Chichewa</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="zh-CN">Chinese (Simplified)</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="zh-TW">Chinese (Traditional)</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="co">Corsican</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="hr">Croatian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="cs">Czech</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="da">Danish</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="nl">Dutch</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="en">English</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="eo">Esperanto</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="et">Estonian</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="tl">Filipino</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="fi">Finnish</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="fr">French</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="fy">Frisian</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="gl">Galician</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ka">Georgian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="de">German</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="el">Greek</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="gu">Gujarati</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ht">Haitian Creole</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ha">Hausa</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="haw">Hawaiian</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="iw">Hebrew</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="hi">Hindi</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="hmn">Hmong</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="hu">Hungarian</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="is">Icelandic</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ig">Igbo</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="id">Indonesian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ga">Irish</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="it">Italian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ja">Japanese</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="jw">Javanese</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="kn">Kannada</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="kk">Kazakh</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="km">Khmer</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="rw">Kinyarwanda</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ko">Korean</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="ku">Kurdish (Kurmanji)</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ky">Kyrgyz</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="lo">Lao</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="la">Latin</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="lv">Latvian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="lt">Lithuanian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="lb">Luxembourgish</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="mk">Macedonian</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="mg">Malagasy</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ms">Malay</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ml">Malayalam</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="mt">Maltese</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="mi">Maori</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="mr">Marathi</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="mn">Mongolian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="my">Myanmar (Burmese)</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="ne">Nepali</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="no">Norwegian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="or">Odia (Oriya)</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ps">Pashto</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="fa">Persian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="pl">Polish</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="pt">Portuguese</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="pa">Punjabi</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="ro">Romanian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ru">Russian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sm">Samoan</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="gd">Scots Gaelic</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="sr">Serbian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="st">Sesotho</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sn">Shona</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sd">Sindhi</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="si">Sinhala</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sk">Slovak</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sl">Slovenian</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="so">Somali</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="es">Spanish</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="su">Sundanese</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sw">Swahili</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="sv">Swedish</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="tg">Tajik</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ta">Tamil</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="tt">Tatar</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="te">Telugu</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="th">Thai</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="tr">Turkish</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="tk">Turkmen</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="uk">Ukrainian</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="ur">Urdu</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="ug">Uyghur</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="uz">Uzbek</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="vi">Vietnamese</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="cy">Welsh</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="xh">Xhosa</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="yi">Yiddish</a></td><td><a class="dropdown-item clicklang" href="#" data-locale="yo">Yoruba</a></td></tr><tr><td><a class="dropdown-item clicklang" href="#" data-locale="zu">Zulu</a></td></tr></tbody></table>',
+              showConfirmButton: false,
+              width: 'auto'
+            })
+        });
+        $(document).on('click','.clicklang',function (e) {
+            e.preventDefault();
+            var locale = $(this).data('locale');
+
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/underscore-min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/main.js"></script>
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/script.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+                    //No Alert
+                  $("#menu-toggle").click(function(e) {
+         e.preventDefault();
+         $("#wrapper").toggleClass("toggled");
+         });
+         if ($(window).width() < 767) {
+         $('#wrapper').removeClass('toggled');
+         } else {
+         $('#wrapper').addClass('toggled');
+         }
+         $('.customerSlider').slick({
+           dots: false,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.fb-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav2"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.yt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav3"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.int-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav4"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.twt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav5"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.snc-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav6"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.clientSlider').slick({
+           dots: true,
+           arrows: true,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           vertical: true,
+           infinite: false
+         });
+         $(window).scroll(function() {
+           if ($(document).scrollTop() > 100) {
+             $('#guest-nav').addClass('shrink');
+           } else {
+             $('#guest-nav').removeClass('shrink');
+           }
+         });
+         // for hover dropdown menu
+         $('ul.nav li.dropdown').hover(function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+         }, function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+         });
+
+
+         <!-- For scrolling Service table -->
+         $(".serNameButtons").find("a").click(function(e) {
+             e.preventDefault();
+             var section = $(this).attr("href");
+             $("html, body").animate({
+                 scrollTop: $(section).offset().top
+             }, 1500);
+         });
+         $('#glog').click(function(){
+            window.location.href='/login/google';
+         });
+      </script>
+      
+      <!-- end -->    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    <script type="text/javascript" src="js/panel/cerulean/script.js"></script>    <script type="text/javascript" src="js/main.js"></script>    <script type="text/javascript" src="js/panel/cerulean/bootstrap.js"></script>    <script type="text/javascript" src="js/panel/cerulean/main.js"></script>    <script type="text/javascript" src="js/datepicker/js/bootstrap-datepicker.min.js"></script>    <script type="text/javascript" src="js/datepicker/locales/bootstrap-datepicker.tr.min.js"></script><!--<script type="text/javascript" src="js/main.js?v=36"></script>-->
+<style>
+    body{
+        font-family: 'Titillium Web', sans-serif;
+    }
+</style>
+</body>
+</html>
+{% include 'footer.twig' %}
+
+

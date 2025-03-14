@@ -1,0 +1,250 @@
+{% include 'header1.twig' %}
+
+   
+<!---Copun Code---->
+<div class="wrapper-content__body">
+  <!-- Main variables *content* -->
+  <div id="block_api" class="pt-5">
+  <div class="block-api">
+  <div class="container-fluid">
+  <div class="row justify-content-center">
+  <div class="col-lg-10">
+         
+  <div class="col-md-12g">
+  <div class="well "></br></br>
+  <div class="dashboard-content">
+  <div class="head clearfix">
+  <h5>Account Details</h5><span>
+       
+    <strong><img width="30" height="30" src="https://i.imgur.com/shhEM16.png" ></img> </strong>
+    </span> 
+    
+  </div>
+  <div class="content">
+  {% if error %}
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ errorText }}
+        </div>
+      {% endif %}
+      {% if success %}
+        <div class="alert alert-dismissible alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ successText }}
+        </div>
+      {% endif %}
+      </br>
+      
+      <div class="form-group">
+          <label for="charge" class="control-label">{{ lang['account.username'] }}</label>
+          <input type="text" class="form-control" value="{{ user['username'] }}" readonly>
+        </div>
+
+        
+
+        <div class="form-group">
+          <label for="charge" class="control-label">{{ lang['account.email'] }}</label>
+          <input type="text" class="form-control" value="{{ user['email'] }}" readonly>
+        </div>
+
+
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </div> 
+  
+  
+  
+    <!---Copun Code---->
+<div class="wrapper-content__body">
+  <!-- Main variables *content* -->
+  <div id="block_api" class="pt-5">
+  <div class="block-api">
+  <div class="container-fluid">
+  <div class="row justify-content-center">
+  <div class="col-lg-10">
+         
+  <div class="col-md-12g">
+  <div class="well ">
+  <div class="dashboard-content">
+  <div class="head clearfix">
+  <h5>Change Password </h5><span>
+       
+    <strong><img width="30" height="30" src="https://i.imgur.com/shhEM16.png" ></img> </strong>
+    </span> 
+    
+  </div>
+  <div class="content">
+  
+
+
+ <form method="post" action="account">
+
+          <div class="form-group">
+            <label for="charge" class="control-label">{{ lang['account.password.current'] }}</label>
+            <input type="password" class="form-control" value="" name="current_password">
+          </div>
+
+          <div class="form-group">
+            <label for="charge" class="control-label">{{ lang['account.password.new'] }}</label>
+            <input type="password" class="form-control" value="" name="password">
+          </div>
+
+          <div class="form-group">
+            <label for="charge" class="control-label">{{ lang['account.password.confirm'] }}</label>
+            <input type="password" class="form-control" value="" name="confirm_password">
+          </div>
+          <button type="submit" class="btn btn-block btn-big-primary">{{ lang['account.password.button'] }}</button>
+        
+      </div>
+</form>
+
+
+{% if site['languages']|length > 1 %}
+        <div class="well">
+          <form method="post" action="account/change_lang">
+
+            <div class="form-group">
+              <label for="charge" class="control-label">{{ lang['account.changelang.title'] }}</label>
+              <select class="form-control" name="lang">
+                  {% for language in site['languages'] %}
+                  <option {% if language["code"] == user["lang"] %} selected {% endif %} value="{{ language["code"] }}">{{ language["name"] }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-block btn-big-primary">{{ lang['account.changelang.button'] }}</button>
+          </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+    </div>
+</div>
+
+       {% endif %}
+
+
+
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </div> 
+  
+  
+  
+  
+    <!---Copun Code---->
+<div class="wrapper-content__body">
+  <!-- Main variables *content* -->
+  <div id="block_api" class="pt-5">
+  <div class="block-api">
+  <div class="container-fluid">
+  <div class="row justify-content-center">
+  <div class="col-lg-10">
+         
+  <div class="col-md-12g">
+  <div class="well ">
+  <div class="dashboard-content">
+  <div class="head clearfix">
+  <h5>Generate New API</h5><span>
+       
+    <strong><img width="30" height="30" src="https://i.imgur.com/3C4MHUh.png" ></img> </strong>
+    </span> 
+    
+  </div>
+  <div class="content">
+  
+<form class="component_form_group" action="/account/newapikey" method="post">
+                                <div class="">
+                                    <div class="form-group">
+                                        
+                                        <div class="d-flex">
+                                                                                        <div class="">
+                                                <div class="component_button_save">
+                                                   <div class="">
+                                                
+                                                       <input type="hidden" name="_csrf" value="WcTHAGHCuQUKh6WRZ_KxNhWwYRIZjilB7qbTimoKuDcOlYZGE4HuX2v-8LxRuN90Qt4yV1TianSZzJb8CEj2Vg==">
+                                                       <button class="btn btn-block btn-big-primary" type="submit">
+                                                           Generate New
+                                                       </button>
+                                                   </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+
+
+
+
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </div> 
+  
+  
+
+  
+  <!---Copun Code---->
+<div class="wrapper-content__body">
+  <!-- Main variables *content* -->
+  <div id="block_api" class="pt-5">
+  <div class="block-api">
+  <div class="container-fluid">
+  <div class="row justify-content-center">
+  <div class="col-lg-10">
+         
+  <div class="col-md-12g">
+  <div class="well ">
+  <div class="dashboard-content">
+  <div class="head clearfix">
+  <h5>Change Currency</h5><span>
+       
+    <strong><img width="30" height="30" src="https://i.imgur.com/shhEM16.png" ></img> </strong>
+    </span> 
+    
+  </div>
+  <div class="content">
+  
+
+
+
+<form method="post" action="account/currency">
+
+           <div class="form-group">
+             
+             <select class="form-control" name="currency">
+                 
+<option {% if currency["id"] == "{{ user['currency'] }}" %} selected  {% endif %} value="{{ currency['id'] }}">Active:-{{ currency['name'] }}</option>
+{% for currencies in currencies %}
+                 <option value="{{ currencies["id"] }}">{{ currencies["name"] }}</option>
+                 {% endfor %}
+             </select>
+           </div>
+
+           <button type="submit" class="btn btn-block btn-big-primary">Change</button>
+         </form>
+      
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+  </div> 

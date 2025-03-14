@@ -1,0 +1,118 @@
+{% include 'header.twig' %}
+
+
+  <div class="wrapper-content">
+                <div class="wrapper-content__header"></div>
+                <div class="wrapper-content__body">
+                        <div id="block_9">
+        <div class="sign-in">
+            <div class="bg"></div>
+            <div class="divider-top"></div>
+            <div class="divider-bottom"></div>
+            <div class="container">
+                <div class="row sign-up-center-alignment">
+                    <div class="col-lg-12 mb-1">
+                        <div class="text-block__title style-header-text">
+                            <h2 class="text-center"><span style="text-align: CENTER;">Create Your Account</span></h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="component_card">
+                            <div class="card">
+                               <form action="" method="post">
+                               
+      {% if errorText %}
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ errorText }}
+        </div>
+      {% endif %}
+      {% if successText %}
+        <div class="alert alert-dismissible alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ successText }}
+        </div>
+      {% endif %}
+      
+                                    <div class="">
+                                        
+                                         <div class="form-group">
+                                            <label for="username" class="control-label">👤 Username </label>
+                                            <input type="text" class="form-control" id="username" value="{{ data['username'] }}" name="username" />
+                                        </div>
+                                        {% if settings['name_secret'] == 2 %}
+                                        <div class="form-group">
+                                            <label for="first_name" class="control-label">👤 First Name </label>
+                                            <input type="text" class="form-control" id="first_name" value="{{ data['first_name'] }}" name="first_name" />
+                                        </div>
+                                        
+                                         <div class="form-group">
+                                            <label for="last_name" class="control-label">👤 Last Name </label>
+                                            <input type="text" class="form-control" id="last_name" value="{{ data['last_name'] }}" name="last_name" />
+                                        </div>
+                                        {% endif %}
+                                        
+                                        <div class="form-group">
+                                            <label for="email" class="control-label">📧 E-mail </label>
+                                            <input type="email" class="form-control" id="email" value="{{ data['email'] }}" name="email" />
+                                        </div>
+                                        {% if settings['skype_area'] == 2 %}
+                                        <div class="form-group">
+                                            <label for="skype_id" class="control-label"> 🔢 WhatsApp No. { Optional }</label>
+                                            <input type="text" class="form-control" id="skype_id" value="{{ data['telephone'] }}" name="telephone" />
+                                        </div>
+                                        {% endif %}
+                                        <div class="form-group">
+                                            <label for="password" class="control-label">🔐 Password</label>
+                                            <input type="password" class="form-control" id="password" name="password" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirm" class="control-label">🔐 Confirm Password</label>
+                                            <input type="password" class="form-control" id="password_again" name="password_again" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                             {% if settings['terms_checkbox'] == 2 %}
+						<div class="mt-4 custom-control custom-checkbox text-left checkbox">
+							<input type="checkbox" name="terms" value="1">{{ lang['signup.accept_terms_text'] }}
+						</div>
+						{% endif %}	
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                     <div class="mt-4">
+								<div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
+							</div>
+                                    
+                                    <div class="component_button_submit">
+                                        <div class="form-group">
+                                            <div class="" style="text-align: center;">
+                                                <button type="submit"  class=" btn btn-block btn-primary">🙋 Create Account </button>
+                                                                                                    <span style="color:black">OR</span>
+                                                    
+                                                    <a href="/google"  class="btn btn-block btn-secondary"><i class="fab fa-google"></i>&nbsp;Login with Google</a>
+
+                                                                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center signin-content">Already have an account? <a href="/" class="sign-up-center-signin-link">📲 Sign in</a></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+<br>
+
+
+{% for lang in site['languages'] %}
+  {% if lang['active'] %}
+    <script src="https://www.google.com/recaptcha/api.js?hl={{ lang['code'] }}"></script>
+  {% endif %}
+{% endfor %}
+
+{% include 'footer.twig' %}

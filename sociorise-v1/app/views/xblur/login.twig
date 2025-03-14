@@ -1,0 +1,737 @@
+{% include 'header.twig' %}
+
+  
+  
+  <div class="wrapper-content">
+                <div class="wrapper-content__header"></div>
+                <div class="wrapper-content__body">
+                    <div id="block_6">
+    <div class="block-signin">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="block-signin__content">
+                        <div class="block-signin__title style-text-signin">
+                            <h1 class="text-center">
+                                <span style="text-align: CENTER;"><span style="color: #ffffff;">The most reliable &amp; cheapest SMM panel</span></span>
+                            </h1>
+                        </div>
+                        <div class="block-signin__description style-text-signin">
+                            <p class="text-center">
+                                <span style="color: #ffffff;"><span style="text-align: CENTER;">{{ site["site_name"] }} is the best SMM Panel in the SMM World. Buy Facebook, Instagram, Youtube, Telegram, Twitter services. TheMainSmm is the best and Cheapest SMM Panel in the market. We are the Main SMM Panel Provider in the market since 2019.</span></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row block-signin__aligment">
+                <div class="col-lg-8">
+                    <div class="block-signin__card component_card">
+                        <div class="card">
+                            <form method="post" action="/" class="component_form_group component_checkbox_remember_me">
+                                
+                                	{% if errorText %}
+							<div class="alert alert-dismissible alert-danger">
+							  <button type="button" class="close" data-dismiss="alert">×</button>
+							  {{ errorText }}
+							</div>
+						  {% endif %}
+						  {% if successText %}
+							<div class="alert alert-dismissible alert-success">
+							  <button type="button" class="close" data-dismiss="alert">×</button>
+							  {{ successText }}
+							</div>
+						  {% endif %}
+						  
+                                <div class="form-row">
+                                    <div class="custom-col">
+                                        <div class="form-group">
+                                            <label>👤 Username </label>
+                                            <input class="form-control" type="text" name="username" />
+                                        </div>
+                                    </div>
+                                    <div class="custom-col">
+                                        <div class="form-group">
+                                            <label>🔐 Password </label>
+                                            <input class="form-control" type="password" name="password" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="custom-col">
+                                        <div class="form-group">
+                                            <div class="form-group__checkbox">
+                                                <label class="form-group__checkbox-label">
+                                                    <input type="checkbox" name="remember" id="remember" />
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="form-group__label-title" for="block_6_remember_me">🧠 Remember Me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="custom-col">
+                                        <div class="form-group">
+                                            <a class="login-link" href="/resetpassword">🙆 Forgot Password?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                 {% if captcha %}
+                                      <div class="mt-4">
+								<div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
+							</div>{% endif %}
+                                
+                                
+                                <div class="form-row">
+                                    <div class="custom-col">
+                                        <div class="form-group d-flex component_button_submit">
+                                            <button class="btn btn-primary" type="submit">📲 Sign In</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {% if google == 2 %}
+                                                                 <div class="form-row">
+                                    <div class="custom-col">
+                                       <div class="form-group d-flex component_button_submit">
+                                           <a href="/google"  class="btn btn-secondary"><i class="fab fa-google"></i>&nbsp;✅ Login with Google</a>
+                                       </div>
+                                    </div>
+                                 </div> {% endif %}
+                                                                                                <div class="form-row">
+                                    <div class="custom-col">
+                                        <div class="form-group d-flex justify-content-center">
+                                            <div class="block-signin__remember">
+                                                <p>Do not have an account?</p>
+                                                <a class="block-signin__link" href="/signup"> Sign Up 🤩</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="block_8">
+    <div class="header-with-text">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-block__title style-header-text">
+                        <h2 class="text-center">Our advantages</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-block__description style-header-text">
+                        <p class="text-center">We aim to help our customers become popular online in an affordable way.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="block_25">
+    <div class="block-features">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 block-features__cards">
+                    <div class="row">
+                        <div class="col-md-6 style-features-card">
+                            <div class="card features-card" style="">
+                                <div class="block-features__card">
+                                    <div class="block-features__card-icon" style="margin-bottom: 10px; height: 80px; width: 80px;">
+                                        <span
+                                            class="feature-block__icon style-text-primary fas fa-crown"
+                                            style="
+                                                font-size: 24px;
+                                                width: 24px;
+                                                height: 24px;
+                                                transform: rotate(0deg);
+                                                color: #14ddd7;
+                                                text-shadow: 0 8px 16px rgba(20, 221, 215, 0.32);
+                                                border-radius: 0px;
+                                                background: transparent;
+                                                padding: 0px;
+                                            "
+                                        ></span>
+                                    </div>
+                                    <div class="block-features__card-content">
+                                        <div class="card-content__head style-text-features-title" style="margin-bottom: 10px; padding-left: 0px; padding-right: 0px;">
+                                            <p><strong style="font-weight: bold;">Top-notch services</strong></p>
+                                        </div>
+                                        <div class="card-content__desc style-text-features-desc" style="padding-left: 0px; padding-right: 0px;">
+                                            <p>Enjoy the excellent quality of our SMM services.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 style-features-card">
+                            <div class="card features-card" style="">
+                                <div class="block-features__card">
+                                    <div class="block-features__card-icon" style="margin-bottom: 10px; height: 80px; width: 80px;">
+                                        <span
+                                            class="feature-block__icon style-text-primary fas fa-credit-card-blank"
+                                            style="
+                                                font-size: 24px;
+                                                width: 24px;
+                                                height: 24px;
+                                                transform: rotate(0deg);
+                                                color: #1a87ff;
+                                                text-shadow: 0 8px 16px rgba(26, 135, 255, 0.32);
+                                                border-radius: 0px;
+                                                background: transparent;
+                                                padding: 0px;
+                                            "
+                                        ></span>
+                                    </div>
+                                    <div class="block-features__card-content">
+                                        <div class="card-content__head style-text-features-title" style="margin-bottom: 10px; padding-left: 0px; padding-right: 0px;">
+                                            <p><strong style="font-weight: bold;">Numerous payment methods</strong></p>
+                                        </div>
+                                        <div class="card-content__desc style-text-features-desc" style="padding-left: 0px; padding-right: 0px;">
+                                            <p>Use the most convenient payment method to add funds.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 style-features-card">
+                            <div class="card features-card" style="">
+                                <div class="block-features__card">
+                                    <div class="block-features__card-icon" style="margin-bottom: 10px; height: 80px; width: 80px;">
+                                        <span
+                                            class="feature-block__icon style-text-primary fas fa-piggy-bank"
+                                            style="
+                                                font-size: 24px;
+                                                width: 24px;
+                                                height: 24px;
+                                                transform: rotate(0deg);
+                                                color: #ffc157;
+                                                text-shadow: 0 8px 16px rgba(255, 193, 87, 0.32);
+                                                border-radius: 0px;
+                                                background: transparent;
+                                                padding: 0px;
+                                            "
+                                        ></span>
+                                    </div>
+                                    <div class="block-features__card-content">
+                                        <div class="card-content__head style-text-features-title" style="margin-bottom: 10px; padding-left: 0px; padding-right: 0px;">
+                                            <p><strong style="font-weight: bold;">Amazing prices</strong></p>
+                                        </div>
+                                        <div class="card-content__desc style-text-features-desc" style="padding-left: 0px; padding-right: 0px;">
+                                            <p>We offer affordable services to fit our customers&#039; needs.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 style-features-card">
+                            <div class="card features-card" style="">
+                                <div class="block-features__card">
+                                    <div class="block-features__card-icon" style="margin-bottom: 10px; height: 80px; width: 80px;">
+                                        <span
+                                            class="feature-block__icon style-text-primary fas fa-rocket-launch"
+                                            style="
+                                                font-size: 24px;
+                                                width: 24px;
+                                                height: 24px;
+                                                transform: rotate(0deg);
+                                                color: #ff4587;
+                                                text-shadow: 0 8px 16px rgba(255, 69, 135, 0.32);
+                                                border-radius: 0px;
+                                                background: transparent;
+                                                padding: 0px;
+                                            "
+                                        ></span>
+                                    </div>
+                                    <div class="block-features__card-content">
+                                        <div class="card-content__head style-text-features-title" style="margin-bottom: 10px; padding-left: 0px; padding-right: 0px;">
+                                            <p><strong style="font-weight: bold;">Very fast delivery</strong></p>
+                                        </div>
+                                        <div class="card-content__desc style-text-features-desc" style="padding-left: 0px; padding-right: 0px;">
+                                            <p>You don&#039;t need to wait long for your orders to be delivered.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="block_35">
+    <div class="header-with-text">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-block__title style-header-text">
+                        <h2 class="text-center"><span style="text-align: CENTER;">This is how our panel works</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-block__description style-header-text">
+                        <p class="text-center"><span style="text-align: CENTER;">Check out the simple instruction below to learn how to use our panel.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="block_31">
+    <div class="how-it-works">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="how-it-works__card">
+                                <div class="card" style="">
+                                    <div class="how-it-works__card-wrap">
+                                        <div class="card__icon" style="justify-content: flex-end;">
+                                            <span class="card__icon-wrap" style="height: 80px; width: 80px;">
+                                                <span
+                                                    class="card__icon-fa far fa-grin-hearts"
+                                                    style="
+                                                        font-size: 56px;
+                                                        width: 56px;
+                                                        height: 56px;
+                                                        transform: rotate(0deg);
+                                                        color: #14ddd7;
+                                                        text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+                                                        border-radius: 0px;
+                                                        background: transparent;
+                                                        padding: 0px;
+                                                    "
+                                                ></span>
+                                            </span>
+                                        </div>
+                                        <div class="card__number-wrap">
+                                            <div class="card__number">
+                                                <div class="number__count style-card-number" style="width: 80px; height: 80px; font-size: 24px;">
+                                                    1
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card__content">
+                                            <div class="content__title style-how-it-card-title" style="margin-bottom: 8px; padding-top: 0px; padding-left: 0px; padding-right: 0px;">
+                                                <p><strong style="font-weight: bold;">Register and log in</strong></p>
+                                            </div>
+                                            <div class="content__desc style-how-it-card-desc" style="padding-left: 0px; padding-right: 0x;">
+                                                <p>You need to start with creating a panel account and log in.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="how-it-works__card-line style-card-number-line" style=""></div>
+                            </div>
+                            <div class="how-it-works__card">
+                                <div class="card" style="">
+                                    <div class="how-it-works__card-wrap">
+                                        <div class="card__icon" style="justify-content: flex-start;">
+                                            <span class="card__icon-wrap" style="height: 80px; width: 80px;">
+                                                <span
+                                                    class="card__icon-fa far fa-tachometer-alt-fastest"
+                                                    style="
+                                                        font-size: 56px;
+                                                        width: 56px;
+                                                        height: 56px;
+                                                        transform: rotate(0deg);
+                                                        color: #1a87ff;
+                                                        text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+                                                        border-radius: 0px;
+                                                        background: transparent;
+                                                        padding: 0px;
+                                                    "
+                                                ></span>
+                                            </span>
+                                        </div>
+                                        <div class="card__number-wrap">
+                                            <div class="card__number">
+                                                <div class="number__count style-card-number" style="width: 80px; height: 80px; font-size: 24px;">
+                                                    2
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card__content">
+                                            <div class="content__title style-how-it-card-title" style="margin-bottom: 8px; padding-top: 0px; padding-left: 0px; padding-right: 0px;">
+                                                <p><strong style="font-weight: bold;">Add funds</strong></p>
+                                            </div>
+                                            <div class="content__desc style-how-it-card-desc" style="padding-left: 0px; padding-right: 0x;">
+                                                <p>Next, pick a payment method and add funds to your account.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="how-it-works__card-line style-card-number-line" style=""></div>
+                            </div>
+                            <div class="how-it-works__card">
+                                <div class="card" style="">
+                                    <div class="how-it-works__card-wrap">
+                                        <div class="card__icon" style="justify-content: flex-end;">
+                                            <span
+                                                class="card__icon-wrap"
+                                                style="height: 80px; width: 80px; border-top-left-radius: 0px; border-bottom-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px;"
+                                            >
+                                                <span
+                                                    class="card__icon-fa far fa-hand-peace"
+                                                    style="
+                                                        font-size: 56px;
+                                                        width: 56px;
+                                                        height: 56px;
+                                                        transform: rotate(0deg);
+                                                        color: #ffc157;
+                                                        text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+                                                        border-radius: 0px;
+                                                        background: transparent;
+                                                        padding: 0px;
+                                                    "
+                                                ></span>
+                                            </span>
+                                        </div>
+                                        <div class="card__number-wrap">
+                                            <div class="card__number">
+                                                <div class="number__count style-card-number" style="width: 80px; height: 80px; font-size: 24px;">
+                                                    3
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card__content">
+                                            <div class="content__title style-how-it-card-title" style="margin-bottom: 8px; padding-top: 0px; padding-left: 0px; padding-right: 0px;">
+                                                <p><strong style="font-weight: bold;">Pick services</strong></p>
+                                            </div>
+                                            <div class="content__desc style-how-it-card-desc" style="padding-left: 0px; padding-right: 0x;">
+                                                <p>Select SMM services to help your business receive more publicity.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="how-it-works__card-line style-card-number-line" style=""></div>
+                            </div>
+                            <div class="how-it-works__card">
+                                <div class="card" style="">
+                                    <div class="how-it-works__card-wrap">
+                                        <div class="card__icon" style="justify-content: flex-start;">
+                                            <span class="card__icon-wrap" style="height: 80px; width: 80px;">
+                                                <span
+                                                    class="card__icon-fa far fa-ballot-check"
+                                                    style="
+                                                        font-size: 56px;
+                                                        width: 56px;
+                                                        height: 56px;
+                                                        transform: rotate(0deg);
+                                                        color: #ff4587;
+                                                        text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+                                                        border-radius: 0px;
+                                                        background: transparent;
+                                                        padding: 0px;
+                                                    "
+                                                ></span>
+                                            </span>
+                                        </div>
+                                        <div class="card__number-wrap">
+                                            <div class="card__number">
+                                                <div class="number__count style-card-number" style="width: 80px; height: 80px; font-size: 24px;">
+                                                    4
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card__content">
+                                            <div class="content__title style-how-it-card-title" style="margin-bottom: 8px; padding-top: 0px; padding-left: 0px; padding-right: 0px;">
+                                                <p><strong style="font-weight: bold;">Amazing results</strong></p>
+                                            </div>
+                                            <div class="content__desc style-how-it-card-desc" style="padding-left: 0px; padding-right: 0px;">
+                                                <p>You will be impressed with the results once your order is complete.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="how-it-works__card-line style-card-number-line" style=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="block_23">
+    <div class="reviews-block">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="reviews-block__title style-review-card-title">
+                        <h2>Our customers&#039; reviews</h2>
+                    </div>
+                    <div class="reviews-block__desc style-review-card-desc">
+                        <p>Our main goal is to make sure our customers are satisfied with our services.</p>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 co-sm-12">
+                            <div class="block-reviews__card">
+                                <div class="card card__reviews" style="">
+                                    <div class="item__desc style-review-card-desc" style="padding-left: 0px; padding-right: 0px; margin-bottom: 16px;">
+                                        <p>
+                                            I&#039;m an SMM specialist and I used to spend so much time on growing my clients&#039; social media accounts. But this SMM panel changed my life! Now I&#039;m able to save much more time
+                                            (and money!) while expanding my clientele. Thank you!!
+                                        </p>
+                                    </div>
+                                    <div class="item__author style-review-card-author" style="padding-left: 0px; padding-right: 0px;">
+                                        <p>
+                                            <span><strong style="font-weight: bold;">Jenny Stevenson</strong></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 co-sm-12">
+                            <div class="block-reviews__card">
+                                <div class="card card__reviews" style="">
+                                    <div class="item__desc style-review-card-desc" style="padding-left: 0px; padding-right: 0px; margin-bottom: 16px;">
+                                        <p>I can only speak from my experience but let me tell you this: you can&#039;t go wrong with this SMM panel. Great services that are so cheap!</p>
+                                    </div>
+                                    <div class="item__author style-review-card-author" style="padding-left: 0px; padding-right: 0px;">
+                                        <p>
+                                            <span><strong style="font-weight: bold;">Reese Owens</strong></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 co-sm-12">
+                            <div class="block-reviews__card">
+                                <div class="card card__reviews" style="">
+                                    <div class="item__desc style-review-card-desc" style="padding-left: 0px; padding-right: 0px; margin-bottom: 16px;">
+                                        <p>
+                                           No matter how much I tried to promote my business online, I didn&#039;t get good results. I was just a beginner small business owner so I didn&#039;t have lots of money to spend on
+                                            professional online promos. Using this panel helped me save a TON on SMM services.
+                                        </p>
+                                    </div>
+                                    <div class="item__author style-review-card-author" style="padding-left: 0px; padding-right: 0px;">
+                                        <p>
+                                            <span><strong style="font-weight: bold;">Mike Wong</strong></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 co-sm-12">
+                            <div class="block-reviews__card">
+                                <div class="card card__reviews" style="">
+                                    <div class="item__desc style-review-card-desc" style="padding-left: 0px; padding-right: 0px; margin-bottom: 16px;">
+                                        <p>To be honest, I didn&#039;t even expect that the results of ordering SMM services on this panel would be so good, I&#039;m very impressed! Definitely ordering more soon.</p>
+                                    </div>
+                                    <div class="item__author style-review-card-author" style="padding-left: 0px; padding-right: 0px;">
+                                        <p>
+                                            <span><strong style="font-weight: bold;">Anika Bhagat</strong></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <div id="block_10">
+      <div class="header-with-text">
+         <div class="bg"></div>
+         <div class="divider-top"></div>
+         <div class="divider-bottom"></div>
+         <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="text-block__title style-header-text">
+                           <h2 class="text-center"><span style="text-align: CENTER;">Top Frequently Asked Questions</span></h2>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-12">
+                     <div class="text-block__description style-header-text">
+                           <p class="text-center"><span style="text-align: CENTER;">We gathered some of the most asked questions from our panel visitors and replied to them.</span></p>
+                     </div>
+                  </div>
+               </div>
+         </div>
+      </div>
+   </div>
+   <div id="block_26">
+      <div class="faq">
+         <div class="bg"></div>
+         <div class="divider-top"></div>
+         <div class="divider-bottom"></div>
+         <div class="container">
+               <div class="row justify-content-center">
+                  <div class="col-lg-10">
+                     <div class="row">
+                                                   <div class="col-lg-6 col-md-6 co-sm-12">
+                              <div class="block-faq__card" style="">
+                                 <span class="style-collapsed-background" style="">
+                                       <div class="card card__faq collapsed" data-toggle="collapse" data-target="#faq-block-26-1" aria-expanded="false" aria-controls="#faq-block-26-1" style="">
+                                          <div class="block-faq__card-content">
+                                             <div class="card-content__head">
+                                                   <div class="head__title style-faq-card-title">
+                                                      <p><strong style="font-weight: bold;">Why do people use SMM panels?</strong></p>
+                                                   </div>
+                                                   <div class="head__icon style-collapsed-icon" style="">
+                                                      <div class="faq-block__icon style-collapse-icon fas" style="font-size: 24px;"></div>
+                                                   </div>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                       <div class="card card__faq-desc" style="padding-top: 8px;">
+                                          <div class="card-content__desc collapse" id="faq-block-26-1">
+                                             <div class="desc__body style-faq-card-desc" style="padding-left: 0px; padding-right: 0px;">
+                                                   <p>In general, an SMM panel is an online store where people purchase various SMM services.</p>
+                                             </div>
+                                          </div>
+                                       </div>
+                                 </span>
+                              </div>
+                           </div>
+                                                   <div class="col-lg-6 col-md-6 co-sm-12">
+                              <div class="block-faq__card" style="">
+                                 <span class="style-collapsed-background" style="">
+                                       <div class="card card__faq collapsed" data-toggle="collapse" data-target="#faq-block-26-2" aria-expanded="false" aria-controls="#faq-block-26-2" style="">
+                                          <div class="block-faq__card-content">
+                                             <div class="card-content__head">
+                                                   <div class="head__title style-faq-card-title">
+                                                      <p><strong style="font-weight: bold;">What types of SMM services can I buy on this panel?</strong></p>
+                                                   </div>
+                                                   <div class="head__icon style-collapsed-icon" style="">
+                                                      <div class="faq-block__icon style-collapse-icon fas" style="font-size: 24px;"></div>
+                                                   </div>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                       <div class="card card__faq-desc" style="padding-top: 8px;">
+                                          <div class="card-content__desc collapse" id="faq-block-26-2">
+                                             <div class="desc__body style-faq-card-desc" style="padding-left: 0px; padding-right: 0px;">
+                                                   <p>Various types of SMM services are offered on our panel: followers, likes, views and more.</p>
+                                             </div>
+                                          </div>
+                                       </div>
+                                 </span>
+                              </div>
+                           </div>
+                                                   <div class="col-lg-6 col-md-6 co-sm-12">
+                              <div class="block-faq__card" style="">
+                                 <span class="style-collapsed-background" style="">
+                                       <div class="card card__faq collapsed" data-toggle="collapse" data-target="#faq-block-26-3" aria-expanded="false" aria-controls="#faq-block-26-3" style="">
+                                          <div class="block-faq__card-content">
+                                             <div class="card-content__head">
+                                                   <div class="head__title style-faq-card-title">
+                                                      <p><strong style="font-weight: bold;">Is it safe to buy SMM services on your panel?</strong></p>
+                                                   </div>
+                                                   <div class="head__icon style-collapsed-icon" style="">
+                                                      <div class="faq-block__icon style-collapse-icon fas" style="font-size: 24px;"></div>
+                                                   </div>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                       <div class="card card__faq-desc" style="padding-top: 8px;">
+                                          <div class="card-content__desc collapse" id="faq-block-26-3">
+                                             <div class="desc__body style-faq-card-desc" style="padding-left: 0px; padding-right: 0px;">
+                                                   <p>100%. Our panel is very secure and our services are high-quality, your accounts won't be banned.</p>
+                                             </div>
+                                          </div>
+                                       </div>
+                                 </span>
+                              </div>
+                           </div>
+                                                   <div class="col-lg-6 col-md-6 co-sm-12">
+                              <div class="block-faq__card" style="">
+                                 <span class="style-collapsed-background" style="">
+                                       <div class="card card__faq collapsed" data-toggle="collapse" data-target="#faq-block-26-4" aria-expanded="false" aria-controls="#faq-block-26-4" style="">
+                                          <div class="block-faq__card-content">
+                                             <div class="card-content__head">
+                                                   <div class="head__title style-faq-card-title">
+                                                      <p><strong style="font-weight: bold;">A mass order — how does it work?</strong></p>
+                                                   </div>
+                                                   <div class="head__icon style-collapsed-icon" style="">
+                                                      <div class="faq-block__icon style-collapse-icon fas" style="font-size: 24px;"></div>
+                                                   </div>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                       <div class="card card__faq-desc" style="padding-top: 8px;">
+                                          <div class="card-content__desc collapse" id="faq-block-26-4">
+                                             <div class="desc__body style-faq-card-desc" style="padding-left: 0px; padding-right: 0px;">
+                                                   <p>The mass order feature helps place several orders with different links at the same time.</p>
+                                             </div>
+                                          </div>
+                                       </div>
+                                 </span>
+                              </div>
+                           </div>
+                                             </div>
+                  </div>
+               </div>
+         </div>
+      </div>
+   </div>
+                </div>
+    
+    
+{% for lang in site['languages'] %}
+  {% if lang['active'] %}
+    <script src="https://www.google.com/recaptcha/api.js?hl={{ lang['code'] }}"></script>
+  {% endif %}
+{% endfor %}
+
+
+
+
+
+
+{% include 'footer.twig' %}
+
+
+
+
+
+
+

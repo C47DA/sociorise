@@ -1,0 +1,422 @@
+{% include 'header.twig' %}
+
+
+ <div class="wrapper-content">
+                <div class="wrapper-content__header"></div>
+                <div class="wrapper-content__body">
+                    <div id="block_api" class="pt-5 pb-5">
+    <div class="block-api">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="table-bg">
+                            <div class="center-big-content-block">
+                                <h4 class="mb-3">API Docs</h4>
+                                <div class="table-responsive mb-3">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="width-40">HTTP Method</td>
+                                                <td>POST</td>
+                                            </tr>
+                                            <tr>
+                                                <td>API URL</td>
+                                                <td>{{ site["url"] }}/api/v2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Response format</td>
+                                                <td>JSON</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h4 class="mb-3">Service list</h4>
+                                <table class="table mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="width-40">Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>key</td>
+                                            <td>API Key can be generated from <a href="/account">Accounts Page</a>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>action</td>
+                                            <td>services</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4>
+                                        Example response
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='[{&quot;service&quot;:101,&quot;name&quot;:&quot;Real &amp; Active Followers&quot;,&quot;rate&quot;:&quot;250.00&quot;,&quot;min&quot;:&quot;100&quot;,&quot;max&quot;:&quot;100000&quot;,&quot;category&quot;:&quot;Instagram Followers&quot;,&quot;type&quot;:&quot;default&quot;,&quot;description&quot;:&quot;Service Description&quot;,&quot;dripfeed&quot;:true,&quot;refill&quot;:true,&quot;cancel&quot;:true},{&quot;service&quot;:30067,&quot;name&quot;:&quot;Instagram - Worldwide&quot;,&quot;rate&quot;:&quot;103.00&quot;,&quot;min&quot;:&quot;100&quot;,&quot;max&quot;:&quot;10000&quot;,&quot;category&quot;:&quot;Instagram Followers&quot;,&quot;type&quot;:&quot;default&quot;,&quot;description&quot;:&quot;Service Description&quot;,&quot;dripfeed&quot;:true,&quot;refill&quot;:true,&quot;cancel&quot;:true}]'
+                                            targetpre='copyServiceListCode_services'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_services"></pre>
+                                <h4 class="mb-3">Add order</h4>
+                                <form class="">
+                                    <div class="form-group">
+                                        <select class="form-control input-sm" id="service_type">
+                                            <option value="0">Default</option>
+                                            <option value="2">Custom Comments</option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <div id="type_0" style="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="width-40">Parameters</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>key</td>
+                                                <td>API Key can be generated from <a href="/account/settings">Accounts Page</a>.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>action</td>
+                                                <td>add</td>
+                                            </tr>
+                                            <tr>
+                                                <td>service</td>
+                                                <td>Package ID</td>
+                                            </tr>
+                                            <tr>
+                                                <td>link</td>
+                                                <td>Link to page</td>
+                                            </tr>
+                                            <tr>
+                                                <td>quantity</td>
+                                                <td>Needed quantity</td>
+                                            </tr>
+                                            <tr>
+                                                <td>runs</td>
+                                                <td>(optional) Runs to deliver</td>
+                                            </tr>
+                                            <tr>
+                                                <td>interval</td>
+                                                <td>(optional) Interval in minutes</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="type_2" style="display: none;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="width-40">Parameters</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>key</td>
+                                                <td>API Key can be generated from <a href="/account/settings">Accounts Page</a>.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>action</td>
+                                                <td>add</td>
+                                            </tr>
+                                            <tr>
+                                                <td>service</td>
+                                                <td>Package ID</td>
+                                            </tr>
+                                            <tr>
+                                                <td>link</td>
+                                                <td>Link to page</td>
+                                            </tr>
+                                            <tr>
+                                                <td>comments</td>
+                                                <td>optional, needed for custom comments, mentions and other relaed packages only. &lt;br&gt;each separated by &#039;
+&#039;, &#039;
+
+&#039;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <h4>Example response
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;order&quot;:23501}'
+                                            targetpre='copyServiceListCode_addorders'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_addorders"></pre>
+                                <h4 class="mb-3">Order status</h4>
+                                <table class="table mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="width-40">Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>key</td>
+                                            <td>API Key can be generated from <a href="/account/settings">Accounts Page</a>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>action</td>
+                                            <td>status</td>
+                                        </tr>
+                                        <tr>
+                                            <td>order</td>
+                                            <td>Order ID</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4>Example response
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;charge&quot;:&quot;0.03300&quot;,&quot;start_count&quot;:&quot;1691&quot;,&quot;status&quot;:&quot;Completed&quot;,&quot;remains&quot;:&quot;0&quot;,&quot;currency&quot;:&quot;USD&quot;}'
+                                            targetpre='copyServiceListCode_status'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_status"></pre>
+                                <h4 class="mb-3">Mass Order status</h4>
+                                <table class="table mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="width-40">Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>key</td>
+                                            <td>API Key can be generated from &lt;a href=&quot;/account/settings&quot;&gt;Accounts Page&lt;/a&gt;.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>action</td>
+                                            <td>status</td>
+                                        </tr>
+                                        <tr>
+                                            <td>orders</td>
+                                            <td>Order IDs separated by comma</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4>Example response
+                                        <button class="copy-api btn btn-link"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;486561&quot;:{&quot;charge&quot;:0.04434830916,&quot;start_count&quot;:&quot;181&quot;,&quot;status&quot;:&quot;Cancelled&quot;,&quot;remains&quot;:&quot;100&quot;,&quot;currency&quot;:&quot;USD&quot;},&quot;486451&quot;:{&quot;error&quot;:&quot;Incorrect order ID&quot;},&quot;486450&quot;:{&quot;charge&quot;:0.08011655652,&quot;start_count&quot;:&quot;44&quot;,&quot;status&quot;:&quot;Completed&quot;,&quot;remains&quot;:&quot;0&quot;,&quot;currency&quot;:&quot;USD&quot;}}'
+                                            targetpre='copyServiceListCode_statuses'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_statuses"></pre>
+                                <h4 class="mb-3">Order Refill</h4>
+                                <table class="table mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="width-40">Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>key</td>
+                                            <td>API Key can be generated from <a href="/account/settings">Accounts Page</a>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>action</td>
+                                            <td>refill</td>
+                                        </tr>
+                                        <tr>
+                                            <td>order</td>
+                                            <td>Order ID</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4>Example response - Success
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;success&quot;:&quot;Your order will be refill asap. Thank you for patience&quot;,&quot;refill&quot;: 12345}'
+                                            targetpre='copyServiceListCode_refill_success'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_refill_success"></pre>
+                                <div>
+                                    <h4>Example response - Failure
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;error&quot;:&quot;Order not eligible for refill.&quot;}'
+                                            targetpre='copyServiceListCode_refill_fail'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_refill_fail"></pre>
+                                <h4 class="mb-3">Refill status</h4>
+                                <table class="table mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="width-40">Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>key</td>
+                                            <td>API Key can be generated from <a href="/account/settings">Accounts Page</a>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>action</td>
+                                            <td>refill_status</td>
+                                        </tr>
+                                        <tr>
+                                            <td>order</td>
+                                            <td>Order ID</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4>Example response
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;status&quot;:&quot;Completed&quot;}'
+                                            targetpre='copyServiceListCode_refill_status'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_refill_status"></pre>
+                                <h4 class="mb-3">Cancel Order</h4>
+                                <table class="table mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="width-40">Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>key</td>
+                                            <td>API Key can be generated from <a href="/account/settings">Accounts Page</a>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>action</td>
+                                            <td>cancel</td>
+                                        </tr>
+                                        <tr>
+                                            <td>order</td>
+                                            <td>Order ID</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4>Example response - Success
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;success&quot;:&quot;We will attempt to cancel this order. Cancellation is not guaranteed. Please check again in 5 minutes.&quot;}'
+                                            targetpre='copyServiceListCode_cancel_success'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_cancel_success"></pre>
+                                <div>
+                                    <h4>Example response - Failure
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;error&quot;:&quot;Order not eligible for cancellation.&quot;}'
+                                            targetpre='copyServiceListCode_cancel_fail'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_cancel_fail"></pre>
+                                <h4 class="mb-3">User balance</h4>
+                                <table class="table mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="width-40">Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>key</td>
+                                            <td>API Key can be generated from <a href="/account/settings">Accounts Page</a>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>action</td>
+                                            <td>balance</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4>Example response
+                                        <button class="copy-api btn btn-info"
+                                            data-toggle="tooltip" data-placement="bottom" 
+                                            jsoncode='{&quot;balance&quot;:&quot;100.84292&quot;,&quot;currency&quot;:&quot;USD&quot;}'
+                                            targetpre='copyServiceListCode_balance'
+                                            onclick="copyToClipboardJSON(this)"
+                                            data-original-title=" Copy code">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </h4>
+                                </div>
+                                <pre id="copyServiceListCode_balance"></pre>
+                                <a href="/example.txt" class="btn btn-secondary" target="_blank">Example of PHP code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
+                <div class="wrapper-content__footer">
+                </div>
+            </div>
+        </div>
+
+
+
+{% include 'footer.twig' %}

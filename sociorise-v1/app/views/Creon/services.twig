@@ -1,0 +1,402 @@
+{% include 'header1.twig' %}
+<br>
+<br><br>
+<br>
+<br>
+<br><br>
+<br>
+<div id="page-wrapper">
+      <div class="inner-page-wrapper"><div class="container-fluid service-page">
+        {% if site['service_speed'] == 2 %}
+          <div class="top justify-content-center text-center">
+            <span class="list">
+              <span class="">
+              <span style="color: #f24236;font-weight: 500; font-size:10px;" class="fa fa-arrow-down"></span>
+              <span style="color: #f24236;font-weight: 500; font-size:10px;">: {{ lang['services.speed.veryslow'] }}</span></span>
+              <span class="ml-4x">
+              <span style="color: #fe6d86;font-weight: 500; font-size:10px;" class="fa fa-arrow-down"></span>
+              <span style="color: #fe6d86;font-weight: 500; font-size:10px;">: {{ lang['services.speed.slow'] }}</span></span>
+              <span class="ml-4x">
+              <span style="color: #5696c9;font-weight: 500; font-size:10px;" class="fa fa-compress"></span>
+              <span style="color: #5696c9;font-weight: 500; font-size:10px;">: {{ lang['services.speed.normal'] }}</span></span>
+              <span class="ml-4x">
+              <span style="color: #0dd887;font-weight: 500; font-size:10px;" class="fa fa-arrow-up"></span>
+              <span style="color: #0dd887;font-weight: 500; font-size:10px;">: {{ lang['services.speed.fast'] }}</span></span>
+            </span>
+          </div>
+        {% endif %}
+        <div class="well">
+        <table class="table ">
+          <thead>
+          <tr>
+            <th>{{ lang['services.id'] }}</th>
+            <th class="width-service-name">{{ lang['services.name'] }}</th>
+         
+            <th class="nowrap">{{ lang['services.price'] }}</th>
+            <th class="nowrap">{{ lang['services.min'] }}</th>
+            <th class="nowrap">{{ lang['services.max'] }}</th>
+			   <th class="nowrap">Discription</th>
+          </tr>
+          </thead>
+          <tbody>
+              {% for category in serviceCategory %}
+                <tr>
+                  <td colspan="6"><strong><i class="fa fa-{{ category["category_icon"] }}"></i> {{ category["category_name"] }} </strong></td>
+                </tr>
+                {% for service in category['services'] %}
+                  <tr>
+                    <td>{{ service["service_id"] }}</td>
+                    <td>{{ service["service_name"] }}</td>
+                    <td class="rate" ><span style="" class="badge rateper">
+                      {{ service["service_price"] }}</span>
+                    </td>
+                    <td><span style="" class="badge minorder">{{ service["service_min"] }}</span></td>
+                    <td><span style="" class="badge mxnorder">{{ service["service_max"] }}</span></td>
+		<td>
+                     <!-- Modal -->
+                        <div class="modal fade" id="servis{{ service["service_id"] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ service["service_name"] }} </h5> 
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                              </div>
+                              <div class="modal-body text-left">
+                                <p class="detail-data details-split-959"> {{ service["service_description"] }}</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div><a href="javascript:void(0)" class="btn btn-actions " data-toggle="modal" data-target="#servis{{ service["service_id"] }}">
+                         View
+                      </a>
+                  
+                        </td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div></div></div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<!-- webers era-->
+<!-- 5ghackerz.in-->
+  
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					    <script type="text/javascript" src="public/Engaging/js/script.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					    <script type="text/javascript" src="public/Engaging/js/snowfall.min.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					    <script type="text/javascript" src="public/Engaging/js/bundle.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					    <script type="text/javascript" src="public/Engaging/js/main.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					    <script type="text/javascript" src="public/ajax.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					    <script type="text/javascript" src="public/datepicker/js/bootstrap-datepicker.min.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					  
+
+  <script src="https://www.google.com/recaptcha/api.js?hl=tr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>       
+ <script type="text/javascript" >
+    $("#notificationModal_1").on("hidden.bs.modal", function () {
+     var popIds = $(this).attr('popids');
+     console.log(this);
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_data',
+                data: { 'action': "close_popup", 'popIds': popIds },
+                success: function(data) {
+                  
+                  }
+            });
+});
+
+
+ 
+   
+   
+   $('#notificationModal_1').modal('show');
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript" >
+     window.modules.layouts = {"auth":0};   </script>
+  <script type="text/javascript" >
+     window.modules.signin = [];   </script>
+  <script type="text/javascript" >
+      </script>
+					</body>
+</html>

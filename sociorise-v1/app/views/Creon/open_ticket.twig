@@ -1,0 +1,410 @@
+{% include 'header1.twig' %}
+<div class="inner-page" style="display: inline-block;">
+<section>
+<div class="container">
+<style type="text/css">
+  
+.chat {
+  border: solid 1px #EEE;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.messages {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.yours {
+  align-items: flex-start;
+}
+
+.yours .message {
+  /*margin-right: 25%;*/
+  background-color: #cfcfcf;
+  position: relative;
+}
+.message{
+  font-size: 18px;
+}
+.yours .message.last:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: -7px;
+  height: 20px;
+  width: 20px;
+  background: #cfcfcf;
+  border-bottom-right-radius: 15px;
+}
+.yours .message.last:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: -10px;
+  width: 10px;
+  height: 20px;
+  background: white;
+  border-bottom-right-radius: 10px;
+}
+
+.mine {
+  align-items: flex-end;
+}
+
+.mine .message {
+  color: white;
+  /*margin-left: 25%;*/
+  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+.mine .message.last:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  right: -8px;
+  height: 20px;
+  width: 20px;
+  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background-attachment: fixed;
+  border-bottom-left-radius: 15px;
+}
+
+.mine .message.last:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: -10px;
+  width: 10px;
+  height: 20px;
+  background: white;
+  border-bottom-left-radius: 10px;
+}
+.panel-border-top>div {
+    width: 100% !important;
+}
+
+.nicEdit-main {
+    width: auto !important;
+    min-height: 100px !important;
+}
+</style>
+
+		<div class="wrapper-content">
+    <div class="wrapper-content__header">
+          </div>
+    <div class="wrapper-content__body">
+      <!-- Main variables *content* -->
+      <div id="block_95">
+    <div class="ticket-form">
+        <div class="bg"></div>
+        <div class="divider-top"></div>
+        <div class="divider-bottom"></div>
+        <div class="container">
+            <div class="row ticket-form__alignment">
+                <div class="col-lg-8 offset-lg-2">
+                   <div class="component_card">
+                      <div class="card">
+    <div>
+
+      {% if error %}
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ errorText }}
+        </div>
+      {% endif %}
+      {% if success %}
+        <div class="alert alert-dismissible alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          {{ successText }}
+        </div>
+      {% endif %}
+
+      
+ <div class="ticket-dialog__title"><h3>{{ messageList['ticket']['subject'] }}</h3> {% if messageList["ticket"]["canmessage"] == 1 %} <span class="badge"> This request has been closed by the administrator</span></div> {% endif %} 
+
+              {% if messageList %}
+                {% for message in messageList %}
+                  {% if message["support"] == 1 %}
+<div class="ticket-dialog__body component_ticket_messages">
+                      <div class="message">
+					  
+                        <div class="ticket-dialog__row  ticket-dialog__row-admin">
+						
+                    <div class="message">{{ message["message"] }}</div>
+                                            <div class="ticket-dialog__row-bottom">
+                                                <div class="info text-left">{{ user["username"] }}</div>
+												<span class="avatar">
+<i class="fa fa-user-circle"></i>
+</span>
+                                                <div class="text-muted">{{ message["time"] }}</div>
+                                              </div>
+                      </div>
+                    </div>
+                  {% elseif message["subject"] %}
+                  {% else %}
+                    
+<div class=" ticket-dialog__row  ticket-dialog__row-user ">
+                                            <div class="message">{{ message["message"] }}</div>
+                                            <div class="message">
+											
+                                              <div class="info text-left">Support</div>
+												<span class="avatar">
+<i class="fa fa-user-circle"></i>
+</span>
+                                                <div class="text-muted">{{ message["time"] }}</div>
+                                            </div>
+                                        </div>
+                                                                    </div>
+                            
+                      </div>
+                    </div>
+                  {% endif %}
+
+                {% endfor %}
+              {% endif %}
+            {% if messageList['ticket']['canmessage'] == 2 %}
+              <div class="row">
+                  <div class="col-md-12">
+                    <form method="post" action="tickets/{{ messageList['ticket']['ticket_id'] }}">
+                      <div class="form-group panel-border-top"><br>
+                        <label for="message" class="control-label">Message</label>
+                        <textarea id="message" rows="5" class="form-control" name="message">{{ data["message"] }}</textarea>
+                      </div>
+                      <button type="submit" class="btn btn-block btn-big-primary">Submit</button>
+                    </form>
+                  </div>
+                </div>
+             
+            {% endif %}
+
+</div></div></div></div></div></div>
+
+
+<script>
+
+
+$(document).ready(function() {
+  var notifications = [];
+  $.ajax({
+    url: '/broadcast.php',
+    dataType: 'json',
+    success: function(data) {
+      notifications = data;
+      showNextNotification();
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log('Failed to retrieve broadcast notification');
+    }
+  });
+
+  function showNextNotification() {
+    if (notifications.length > 0) {
+      var notification = notifications.shift();
+      var notificationId = 'notification-' + notification.id;
+      if (getCookie(notificationId) === null) {
+        Swal.fire({
+          icon: notification.BROADCAST_ICON,
+          title: notification.BROADCAST_TITLE,
+          text: notification.BROADCAST_DESCRIPTION
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setCookie(notificationId, 'hidden', 30);
+            showNextNotification();
+          }
+        });
+      } else {
+        showNextNotification();
+      }
+    }
+  }
+
+  function getCookie(name) {
+    var cookieName = name + '=';
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if (cookie.indexOf(cookieName) === 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+    return null;
+  }
+
+  function setCookie(name, value, days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = '; expires=' + date.toUTCString();
+    document.cookie = name + '=' + value + expires + '; path=/';
+  }
+});
+
+
+</script>
+
+
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/underscore-min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/main.js"></script>
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/script.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+                    //No Alert
+                  $("#menu-toggle").click(function(e) {
+         e.preventDefault();
+         $("#wrapper").toggleClass("toggled");
+         });
+         if ($(window).width() < 767) {
+         $('#wrapper').removeClass('toggled');
+         } else {
+         $('#wrapper').addClass('toggled');
+         }
+         $('.customerSlider').slick({
+           dots: false,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.fb-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav2"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.yt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav3"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.int-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav4"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.twt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav5"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.snc-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav6"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.clientSlider').slick({
+           dots: true,
+           arrows: true,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           vertical: true,
+           infinite: false
+         });
+         $(window).scroll(function() {
+           if ($(document).scrollTop() > 100) {
+             $('#guest-nav').addClass('shrink');
+           } else {
+             $('#guest-nav').removeClass('shrink');
+           }
+         });
+         // for hover dropdown menu
+         $('ul.nav li.dropdown').hover(function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+         }, function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+         });
+
+
+         <!-- For scrolling Service table -->
+         $(".serNameButtons").find("a").click(function(e) {
+             e.preventDefault();
+             var section = $(this).attr("href");
+             $("html, body").animate({
+                 scrollTop: $(section).offset().top
+             }, 1500);
+         });
+         $('#glog').click(function(){
+            window.location.href='/login/google';
+         });
+      </script>
+      
+      <!-- end -->    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    <script type="text/javascript" src="js/panel/cerulean/script.js"></script>    <script type="text/javascript" src="js/main.js"></script>    <script type="text/javascript" src="js/panel/cerulean/bootstrap.js"></script>    <script type="text/javascript" src="js/panel/cerulean/main.js"></script>    <script type="text/javascript" src="js/datepicker/js/bootstrap-datepicker.min.js"></script>    <script type="text/javascript" src="js/datepicker/locales/bootstrap-datepicker.tr.min.js"></script><!--<script type="text/javascript" src="js/main.js?v=47"></script>-->
+<style>
+    body{
+        font-family: 'Titillium Web', sans-serif;
+    }
+</style>
+</body>
+</html>

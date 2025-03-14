@@ -1,0 +1,68 @@
+{% include 'header.twig' %}
+
+		<div class="paddingbody"></div>
+		<div class="container-fluid container-fluid-spacious">
+			<div class="row">
+				<div class="col-md-12">
+<div id="main-page" class="well well-float table-responsive">
+
+{% if error %}
+
+<div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+
+<button type="button" class="close" data-dismiss="alert">×</button>
+{{ errorText }}
+</div>
+
+{% elseif success %}
+<div class="alert alert-dismissible alert-success {% if site['rtl'] %} rtl-alert {% endif %}">
+<button type="button" class="close" data-dismiss="alert">×</button>
+{{ successText }}
+</div>
+{% endif %}
+<form method="post" action="tickets">
+<div class="form-group">
+<label for="subject" class="control-label">Subject</label>
+<select type="text" class="form-control" id="subject" name="subject">
+{% for subjects in orders %}
+<option value"{{ subjects['subject'] }}">{{ subjects['subject'] }}</option>
+{% endfor %}
+</select><div class="form-group">
+<label for="message" class="control-label">Message</label>
+<textarea class="form-control" rows="7" id="message" name="message">{{ data['message'] }}</textarea>
+</div>
+<input type="hidden" name="add_ticket" value="add_ticket">
+<button type="submit" class="btn btn-primary">Submit ticket</button>
+</form>
+</div>
+</div>
+
+<table class="table">
+<thead>
+<tr>
+<th width="5%">#</th>
+<th>Subject</th>
+<th width="13%">Status</th>
+<th width="30%">Last update</th>
+</tr>
+</thead>
+<tbody>
+{% for ticket in ticketList %}
+<tr>
+<td>{{ ticket['ticket_id'] }}</td>
+{% if ticket["support_new"] == 2 %}
+<td><a href="tickets/{{ ticket['ticket_id'] }}"><strong>{{ ticket['subject'] }}</strong></a></td>
+{% else %}
+<td><a href="tickets/{{ ticket['ticket_id'] }}">{{ ticket['subject'] }}</a></td>
+{% endif %}
+<td>{{ ticket['status'] }}</td>
+<td><span class="nowrap">{{ ticket['lastupdate_time'] }}</span></td>
+</tr>
+{% endfor %}
+</td>
+</tbody>
+</table>
+
+
+
+{% include 'footer.twig' %}

@@ -1,0 +1,198 @@
+{% include 'header.twig' %}
+
+ 
+
+
+    <div class="paddingbody"></div>
+
+	<div class="container-fluid container-fluid-spacious">
+
+		<div class="row">
+
+			<div class="col-md-12">
+				
+
+				<p></p>
+				<div class=" row card-divs">	
+					<div class="col-md-4">
+					  <div class="cards">
+						<div class="card-body">
+						  <h3 class="card-title">Total Spent</h3>
+						  <h3 class="card-text text-right">{{user["spent"]}} 
+                            </h3>
+						  
+						</div>
+					  </div>
+					
+					</div>
+
+					<div class="col-md-4">
+					  <div class="cards">
+						<div class="card-body">
+						  <h3 class="card-title">Total Orders</h3>
+						  <h3 class="card-text text-right">{{totalorders}}</h3>
+						</div>
+					  </div>
+					</div>
+
+
+
+<div class="col-md-4">
+<div class="cards">
+<div class="card-body">
+<h3 class="card-title">Total Balance</h3>
+<h3 class="card-text text-right">
+    {{ user['balance']}}</h3>
+</div>
+</div>
+</div>
+
+				</div>
+
+				<p></p>
+
+				<div class="row">
+
+					<div class="col-md-12">
+
+						<nav>
+
+							<ul class="nav nav-pills " id="pills-tab" role="tablist">
+
+								<li class="nav-item active">
+
+									 
+
+								</li>
+
+								 
+								</li>
+
+							</ul>
+
+							 
+
+								 
+
+							</select>
+
+						</nav>
+
+					</div>
+
+					<div class="col-md-12">
+
+					<!-- Tab Conetent Starts here -->
+
+						<div class="tab-content" id="pills-tabContent">
+
+							<!-- New Order Tab -->
+
+							<div class="tab-pane fade active in" id="new-order" role="tabpanel" aria-labelledby="pills-home-tab">
+
+								<div id="main-page" class="well well-float table-responsive">
+
+{% if error %}
+      <div class="alert alert-dismissible alert-danger">
+        {{ errorText }}
+      </div>
+    {% endif %}
+
+    {% if data["order"]["success"] == 1 %}
+<div class="order-success-card" id="order-success-card">
+<center>
+<img src="https://www.linkpicture.com/q/404-tick.png" alt="checkmark"></center>
+<h2>Your order has been placed.</h2>
+<div class="order-details">
+<p class="service-name"><span>
+<b>Service :</b><br/>{{data['order']['service']}}</span></p>
+<p><span class="link"><b>Link :</b><br /><a href="{{data['order']['link']}}">{{data['order']['link']}}</a></span></p>
+<p><span class="paid-amount"><b>You paid :</b>&nbsp;&nbsp;<span style="color:#7743DB">
+    {{ data['order']['price'] }}</span></span><span class="quantity"><b>Quantity :</b>&nbsp;&nbsp;<span style="color:#E0144C">{{data['order']['quantity']}}</span></span></p>
+</div>
+<div class="user-details">
+Order ID :&nbsp;{{data['order']['id']}} <span class="copy" onclick="copyToClipboard('{{data['order']['id']}}');"><i class="fas fa-copy"></i></span><br>
+Remaining balance :&nbsp;
+{{ data['order']['balance']}}
+</div>
+<button type="button" onclick="closeOrderReceiptCard()">OK</button>
+</div>
+
+</div>
+<script>
+
+setTimeout(function(){
+var el = $("#order-success-card");
+el.addClass("order-success-card-active");
+},1000);
+function closeOrderReceiptCard(){
+
+var el = document.getElementById("order-success-card");
+
+el.classList.remove("order-success-card-active");
+window.location.href = "/";
+}
+</script>
+
+    {% endif %}
+    {% if data["order"]["success"] == 2 %}
+      <div class="alert alert-dismissible alert-success">
+         <strong> {{ lang["neworder.success.id"] }}: </strong> {{ data['order']['id'] }} <br>
+         <strong> {{ lang["neworder.success.service"] }}: </strong> {{ data['order']['service'] }} <br>
+         <strong> {{ lang["neworder.success.username"] }}: </strong> {{ data['order']['link'] }} <br>
+         <strong> {{ lang["neworder.success.quantity"] }}: </strong> {{ data['order']['min'] }} - {{ data['order']['max'] }} <br>
+         <strong> {{ lang["neworder.success.posts"] }}: </strong> {{ data['order']['posts'] }} <br>
+         <strong> {{ lang["neworder.success.delay"] }}: </strong>{{ data['order']['delay'] }} <br>
+       </div>
+    {% endif %}
+<form method="post" action="">
+
+<div class="form-hidden form-group" >
+<label class="control-label" for="orderCategory">Category</label>
+
+	<select name="category" id="orderCategory" data-size="10"  class="custom-select w-full form-control">
+
+{{ category_html }}
+</select>
+
+</div><div class="form-group">
+
+											<label class="control-label" for="OrderService">Service</label>
+
+<select class="form-control custom-select w-full"  data-size="10"  id="OrderService" name="services">
+</select>
+
+										       </div>
+    
+                <div id="neworder_fields"></div>
+    
+                <div class="form-group" id="charge_div">
+                  <label for="charge" class="control-label">{{ lang["neworder.charge"] }}</label>
+                  <input type="text" class="form-control" id="charge" readonly>
+                </div>
+    
+
+										<input type="hidden" name="place_order" value="place_order">
+
+										<button type="submit" class="btn btn-primary" name="place_order">Submit</button>
+
+									</form>
+
+									
+
+								</div>
+
+								
+
+							</div>
+
+							
+
+							 
+
+		</div>
+
+	</div>
+
+
+{% include 'footer.twig' %}

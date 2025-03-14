@@ -1,0 +1,274 @@
+{% include 'header1.twig' %}
+
+
+   
+
+<!-- Main variables *content* -->
+		<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-12">
+        	<div class="p_card mb-4">
+            	<div class="row">
+                	<div class="col-md-auto mb-3 mb-md-0">
+                       
+                       
+                        <div class="dropdown d-flex h-100">
+                            <button class="btn btn-big-primary w-sm-auto w-100 dropdown-toggle" type="button" id="filterButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                
+                            <span class="fal fa-filter"></span>
+                                <span data-filter-active-category="true"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="drop_srvs_list">
+                                
+                                
+                                
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="javascript:filterService('All')">{{lang["smmspot.services.filter.item.1"]}}</a>
+                            {% for category in serviceCategory %}
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="javascript:filterService('{{ category["category_name"] }}')">{{ category["category_name"] }}</a>
+                            {% endfor%}     
+                      </ul>
+                        </div>
+                    </div>
+                                        <div class="col">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" data-search-service="#service-table">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-big-secondary" data-filter-serch-btn="true">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            <!-- end -->
+
+
+
+
+<div class="row">
+                <div class="col">
+                    <div class="services-list__table">
+                        <div class="table-bg component_table ">
+                            <div class="table-wr table-responsive">
+                                <table class="table" id="service-table">
+                <thead>
+                     <th>ID</th>
+                                        <th width="40%">Service</th>
+                                        <th class="nowrap">Price per 1000</th>
+                                        <th class="nowrap">Min order</th>
+                                        <th class="nowrap">Max order</th>
+            <!-- <th class="nowrap" nowrap><div class="d-flex align-items-center">
+                                                    <span>Average time</span>
+                                                    <span class="ml-1 mr-1 fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="The average time is based on 10 latest completed orders per 1000 quantity."></span>
+                                                </div>
+                                            </th> -->
+                                          <th width="7%">Description</th>
+                                                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        
+                                        
+                                        
+                {% for category in serviceCategory %}
+                    <tr class="service-category" data-category="{{ category["category_name"] }}">
+                        
+                      
+                        
+                        
+                        <td colspan="7" class="pt-2 p-0">
+                                        	<div class="w-100 ">
+                                            	<h4 class="h5 style-bg-primary-alpha-20 style-text-primary p-3">
+                                                                                            
+                                                                   <span class="ms-2 align-middle">{{ category["category_name"] }}</span>
+                                                </h4>
+                                            </div>
+                                        </td>
+                        
+                        
+                    </tr>
+                    
+                    
+                    {% for service in category['services'] %}
+                    <tr class="service serviceData" data-category="{{ category["category_name"] }}">
+                     <!--   <td data-title="Servis Adı" class="pm-ikon">#{{ service["service_id"] }} - {{ service["service_name"] }}</td> -->
+                        
+                        
+                        
+                        
+                        
+                          <td data-label="ID" data-filter-table-service-id="{{ service["service_id"] }}"><span id="service-{{ service["service_id"] }}">{{ service["service_id"] }}</span>
+                                       </td>
+                    <td data-label="Service" class="pm-ikon table-service" data-filter-table-service-name="true">{{ service["service_name"] }}</td>
+                  
+                        
+                        
+                        
+                                           <td>
+                      
+{{ currency['symbol'] }}{{ (service["service_price"]*currency["value"]) }}   
+
+
+                      
+
+                    </td>
+                    <td>{{ service["service_min"] }}</td>
+                    <td>{{ service["service_max"] }}</td>
+                    
+                  <!--  <td>{{ service["time"] }}</td> -->
+                     
+                     <td>
+                     <!-- Modal -->
+                        <div class="modal fade" id="servis{{ service["service_id"] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ service["service_name"] }} </h5> 
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                              </div>
+                              <div class="modal-body text-left">
+                                <p class="detail-data details-split-959"> {{ service["service_description"] }}</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+						  
+                        </div><a href="javascript:void(0)" class="btn btn-big-primary btn-view-service-description" data-toggle="modal" data-target="#servis{{ service["service_id"] }}">
+                         View
+                      </a>
+                   
+                        </td>
+
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div></div>
+</div>
+</div></div></div>
+
+
+{% if contentText2 %}
+{{ contentText2 }}
+{% endif %}
+
+
+
+
+<script>
+
+
+function ikon(opt) {
+    var ikon = "";
+    if (opt.indexOf("Instagram") >= 0) {
+        ikon = "<span class=\"fs-ig\"><i class=\"fab fa-instagram\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("YouTube") >= 0) {
+        ikon = "<span class=\"fs-yt\"><i class=\"fab fa-youtube\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Facebook") >= 0) {
+        ikon = "<span class=\"fs-fb\"><i class=\"fab fa-facebook-square\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Youtube") >= 0) {
+        ikon = "<span class=\"fs-yt\"><i class=\"fab fa-youtube\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Twitter") >= 0) {
+        ikon = "<span class=\"fs-tw\"><i class=\"fab fa-twitter\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Google") >= 0) {
+        ikon = "<span class=\"fs-gp\"><i class=\"fab fa-google-plus\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Swarm") >= 0) {
+        ikon = "<span class=\"fs-fsq\"><i class=\"fab fa-forumbee\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Dailymotion") >= 0) {
+        ikon = "<span class=\"fs-dm\"><i class=\"fab fa-hospital-o\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Periscope") >= 0) {
+        ikon = "<span class=\"fs-pc\"><i class=\"fab fa-map-marker\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Soundcloud") >= 0) {
+        ikon = "<span class=\"fs-sc\"><i class=\"fab fa-soundcloud\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Vine") >= 0) {
+        ikon = "<span class=\"fs-vn\"><i class=\"fab fa-vine\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Spotify") >= 0) {
+        ikon = "<span class=\"fs-sp\"><i class=\"fab fa-spotify\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Snapchat") >= 0) {
+        ikon = "<span class=\"fs-snap\"><i class=\"fab fa-snapchat-square\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Pinterest") >= 0) {
+        ikon = "<span class=\"fs-pt\"><i class=\"fab fa-pinterest-p\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("iTunes") >= 0) {
+        ikon = "<span class=\"fs-apple\"><i class=\"fab fa-apple\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Müzik") >= 0) {
+        ikon = "<span class=\"fs-music\"><i class=\"fab fa-music\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Vimeo") >= 0) {
+        ikon = "<span class=\"fs-videmo\"><i class=\"fab fa-vimeo\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Ekşi") >= 0) {
+        ikon = "<span class=\"fs-eksi\"><i class=\"fab fa-tint\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Telegram") >= 0) {
+        ikon = "<span class=\"fs-telegram\"><i class=\"fab fa-telegram\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Twitch") >= 0) {
+        ikon = "<span class=\"fs-twc\"><i class=\"fab fa-twitch\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Zomato") >= 0) {
+        ikon = "<span class=\"fs-zom\"><i class=\"fab fa-cutlery\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Amazon") >= 0) {
+        ikon = "<span class=\"fs-amaz\"><i class=\"fab fa-amazon\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Tumblr") >= 0) {
+        ikon = "<span class=\"fs-tumb\"><i class=\"fab fa-tumblr-square\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Yandex") >= 0) {
+        ikon = "<span class=\"fs-yndx\"><i class=\"fab fa-yoast\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Linkedin") >= 0) {
+        ikon = "<span class=\"fs-lnk\"><i class=\"fab fa-linkedin\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("Yahoo") >= 0) {
+        ikon = "<span class=\"fs-yahoo\"><i class=\"fab fa-yahoo\" aria-hidden=\"true\"></i> </span>";
+    } else if (opt.indexOf("TikTok") >= 0) {
+        ikon = "<span class=\"fs-tiktok\"><i class=\"fa fa-music\" aria-hidden=\"true\"></i> </span>";
+    } else {
+        ikon = "<span class=\"\"><i class=\"far fa-star\" aria-hidden=\"true\"></i> </span>  ";
+    }
+    return ikon;
+}
+  
+$(document).ready(function() {
+
+    $(".pm-ikon").each(function() {
+                var ico = ikon($(this).text());
+                $(this).html(ico + $(this).text() );
+                console.log($(this).text());
+        }); 
+});
+
+</script>
+<script>
+      function filterService(category) {
+        if (category == 'All')
+          $('tbody tr.hidden').removeClass('hidden');
+        else {
+          $('tbody tr').addClass('hidden');
+          $('tbody tr[data-category="' + category + '"]').removeClass('hidden');
+        }
+        removeEmptyCategory();
+      }
+
+      function removeEmptyCategory() {
+        $('.service-category').each(function () {
+            var next = $(this).next();
+            var services = $(this).nextUntil('.service-category');
+            var empty = true;
+            services.each(function() {
+              if (!$(this).hasClass('hidden')) empty = false;
+            });
+            if (empty) $(this).addClass('hidden');
+        })
+      }
+</script>
+
+
+
+{% include 'footer.twig' %}

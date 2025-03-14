@@ -1,0 +1,428 @@
+{% include 'header1.twig' %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="inner-page" style="display: inline-block;">
+<section>
+<div class="container">
+<style type="text/css">
+  .alert-info{
+    display: block;
+  }
+  td.details-control {
+    background: url('https://images.irscdn.icu/images/details_open.png') no-repeat center center;
+    cursor: pointer;
+    width: 18px;
+}
+
+tr.shown td.details-control {
+    background: url('https://images.irscdn.icu/images/details_close.png') no-repeat center center;
+}
+
+th.dt-center, td.dt-center { text-align: center; }
+
+th.dt-right, td.dt-right { text-align: right; }
+
+.mydatatable_details{
+    font-size: 12px;
+    border-radius: 1px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
+
+table.mydatatable_details tbody td{
+    padding: 3px;
+}
+
+table.mydatatable_details thead th{
+    padding: 3px;
+}
+.dataTables_filter, .dataTables_paginate{
+    float: right
+}
+button#failBtn {
+    font-size: 12px;
+    line-height: 28px;
+    height: 28px;
+    margin-bottom: -2px;
+    text-transform: none
+}
+a#adBtn {
+    font-size: 12px;
+    line-height: 28px;
+    height: 28px;
+    margin-top: -2px;
+    text-transform: none;
+    color:burlywood
+}
+#domain_name{
+    z-index: 2;    
+    position: relative;
+}    
+</style>
+<br>
+<br>
+<div class="row justify-content-center">
+<div class="col-lg-8">
+<div class="card">
+<div class="card-body pt-0">
+    
+    
+	<form action="/child-panels" method="post">									  
+									  
+
+<div class="col-lg-12 tab-content" id="tab-add">
+    <form name="contact-form" action="child-panels" method="post">
+    <div class="form-group">
+    <label for="Domain">Domain</label>
+    <input type="text" class="form-control" name="domain" placeholder="Domain" required>
+    </div>
+		      <div class="component_alert_dns">
+                                        <div class="">
+                                            <div class="alert alert-info">
+                                                <div>Please change nameservers to:</div>
+                                                <ul style="padding-left: 20px"><li>{{ site['ns1'] }}</li><li>{{ site['ns2'] }}</li></ul>        </div>
+    
+		
+			
+		<div class="form-group">
+        
+<label class="Domain" for="currency">Currency</label>
+			
+		<select class="form-control" name="currency" required>
+<option value="USD">United States Dollars (USD)</option>
+<option value="INR">Indian Rupee (INR)</option>
+</select>
+    </div>
+	
+    <div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    <input type="text" class="form-control" name="username" placeholder="Username" required>
+    </div>
+		
+		  <div class="form-group">
+        
+<label class="control-label" for="orderpanelform-password">Password</label><input type="password" class="form-control" name="password" placeholder="Password" required>
+    </div>
+    		  <div class="form-group">
+        
+<label class="control-label" for="orderpanelform-password">Confirm Password</label><input type="password" class="form-control" name="password_confirm" placeholder="Password" required>
+    </div>
+		
+
+    <div class="form-group">
+              <label for="charge" class="control-label">{{ lang["neworder.charge"] }}</label>
+              <input type="text" class="form-control" value="₹ {{ site['childpanel_price'] }}" readonly>
+            </div>
+                                 <div class="component_button_submit">
+                                    <div class="">
+                                        <button class="btn btn-block btn-big-primary" type="submit">
+                                            Submit order
+                                        </button>
+   
+    </form>
+     </div>
+          <div class="col-lg-12 tab-content" id="tab-history" style="display: none;">
+      <div class="">
+        <div class="">
+          
+          <div class="">
+              <div class="table-responsive custom-table">
+            <table class="table ">
+              <thead>
+            <tr>
+              <th>#</th>
+              <th>Domain</th>
+              <th>Currency</th>
+              <th class="width-40">Username</th>
+              <th>Password</th>
+              <th class="nowrap">Date</th>
+              <th class="nowrap">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for logs in chilpanel_logs %}
+              <tr>
+                <td>{{ logs['id'] }}</td>
+                <td>{{ logs['domain'] }}</td>
+                <td>{{ logs['currency'] }}</td>
+                <td class="width-40">{{ logs['child_username'] }}</td>
+                <td>{{ logs['child_password'] }}</td>
+                <td class="nowrap">{{ logs['date_created'] }}</td>
+                <td class="nowrap">
+                {% if logs['status'] == "terminated" %}<form action="/child-panels" method="post"><input name="renew_id" type="hidden" value="{{ logs['id'] }}"/><input type="submit" name="renew" class="btn btn-primary" value="Renew"></form>
+                {% elseif logs['status'] == "active" %}<button class="btn btn-primary">Active</button>
+                {% else %}<button class="btn btn-secondary">Disabled</button>
+                {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  
+          </div>
+    <div class="response_msg"></div>
+    </div></div></div></div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   </div>
+    <br><br></div></div></div></div>
+    
+    
+    <script>
+    function detail(){
+        document.getElementById('tab-add').style.display = 'none';
+        document.getElementById('tab-add-btn').className = 'btn btn-secondary tab-head';
+        document.getElementById('tab-history').style.display = 'block';
+        document.getElementById('tab-history-btn').className = 'btn btn-primary tab-head ml-2';
+    }
+    
+    function payment(){
+        document.getElementById('tab-history').style.display = 'none';
+        document.getElementById('tab-history-btn').className = 'btn btn-secondary tab-head ml-2';
+        document.getElementById('tab-add').style.display = 'block';
+        document.getElementById('tab-add-btn').className = 'btn btn-primary tab-head';
+    }
+</script>
+
+
+
+
+<script>
+
+
+$(document).ready(function() {
+  var notifications = [];
+  $.ajax({
+    url: '/broadcast.php',
+    dataType: 'json',
+    success: function(data) {
+      notifications = data;
+      showNextNotification();
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log('Failed to retrieve broadcast notification');
+    }
+  });
+
+  function showNextNotification() {
+    if (notifications.length > 0) {
+      var notification = notifications.shift();
+      var notificationId = 'notification-' + notification.id;
+      if (getCookie(notificationId) === null) {
+        Swal.fire({
+          icon: notification.BROADCAST_ICON,
+          title: notification.BROADCAST_TITLE,
+          text: notification.BROADCAST_DESCRIPTION
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setCookie(notificationId, 'hidden', 30);
+            showNextNotification();
+          }
+        });
+      } else {
+        showNextNotification();
+      }
+    }
+  }
+
+  function getCookie(name) {
+    var cookieName = name + '=';
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if (cookie.indexOf(cookieName) === 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+    return null;
+  }
+
+  function setCookie(name, value, days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = '; expires=' + date.toUTCString();
+    document.cookie = name + '=' + value + expires + '; path=/';
+  }
+});
+
+
+</script>
+
+
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/underscore-min.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/main.js"></script>
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/script.js"></script>
+
+<script type="text/javascript" src="https://demo.leakstation.in/css/panel/Super Rental/irscdn.icu/smm/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+                    //No Alert
+                  $("#menu-toggle").click(function(e) {
+         e.preventDefault();
+         $("#wrapper").toggleClass("toggled");
+         });
+         if ($(window).width() < 767) {
+         $('#wrapper').removeClass('toggled');
+         } else {
+         $('#wrapper').addClass('toggled');
+         }
+         $('.customerSlider').slick({
+           dots: false,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.fb-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav2"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.yt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav3"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.int-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav4"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.twt-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav5"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.snc-slider').slick({
+           dots: true,
+           arrows:true,
+           infinite: false,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           infinite: true,
+           appendArrows: $(".slider-nav6"),
+           nextArrow: '<button class="right-arrow"></button>',
+           prevArrow: '<button class="left-arrow"></button>',
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+         });
+         $('.clientSlider').slick({
+           dots: true,
+           arrows: true,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           vertical: true,
+           infinite: false
+         });
+         $(window).scroll(function() {
+           if ($(document).scrollTop() > 100) {
+             $('#guest-nav').addClass('shrink');
+           } else {
+             $('#guest-nav').removeClass('shrink');
+           }
+         });
+         // for hover dropdown menu
+         $('ul.nav li.dropdown').hover(function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+         }, function() {
+           $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+         });
+
+
+         <!-- For scrolling Service table -->
+         $(".serNameButtons").find("a").click(function(e) {
+             e.preventDefault();
+             var section = $(this).attr("href");
+             $("html, body").animate({
+                 scrollTop: $(section).offset().top
+             }, 1500);
+         });
+         $('#glog').click(function(){
+            window.location.href='/login/google';
+         });
+      </script>
+      
+      <!-- end -->    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    <script type="text/javascript" src="js/panel/cerulean/script.js"></script>    <script type="text/javascript" src="js/main.js"></script>    <script type="text/javascript" src="js/panel/cerulean/bootstrap.js"></script>    <script type="text/javascript" src="js/panel/cerulean/main.js"></script>    <script type="text/javascript" src="js/datepicker/js/bootstrap-datepicker.min.js"></script>    <script type="text/javascript" src="js/datepicker/locales/bootstrap-datepicker.tr.min.js"></script><!--<script type="text/javascript" src="js/main.js?v=30"></script>-->
+<style>
+    body{
+        font-family: 'Titillium Web', sans-serif;
+    }
+</style>
+</body>
+</html>
+
+
+
+
+
+
+
+
+{% include 'footer.twig' %}

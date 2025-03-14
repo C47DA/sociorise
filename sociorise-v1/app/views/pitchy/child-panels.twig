@@ -1,0 +1,129 @@
+{% include 'header.twig' %}
+
+	<div class="paddingbody"></div>
+<div class="container-fluid container-fluid-spacious">
+	<div class="row">
+
+<div class="col-md-12">
+{% if error %}
+      <div class="alert alert-dismissible alert-danger">
+<button type="button" class="close" data-dismiss="alert">×</button>
+        {{ errorText }}
+      </div>
+    {% endif %}  
+
+    {% if data["childpanel"]["success"] == 1 %}
+      <div class="alert alert-dismissible alert-success">
+<p>You have successfully ordered your Child Panel.</p>
+<strong> Order ID: </strong> {{ data['childpanel']['id'] }} <br>
+<strong> Domain: </strong> {{ data['childpanel']['link'] }} <br>
+<strong> Quantity: </strong> {{ data['childpanel']['quantity'] }} <br>
+<strong> Remaining balance: </strong> {{ data['childpanel']['balance'] }} <br>
+</div>
+{% endif %}
+<form action="child-panels" method="post" class="component_form_group">
+<div class="">
+	<div class="form-group">
+<label for="domain" class="control-label">Domain</label>
+<input type="text" class="form-control" id="panel_domain" name="panel_domain" value="">
+	</div>
+<div style="color:#000;" class="ChildPanelNote">
+<span  style="color:#000;" class="help-block" >Before buying a Child Panel, point your domain to our nameservers :</span>
+<p><b>{{ site['ns1'] }}</b> <span class="copy" onclick="copyToClipboard('{{ site['ns1'] }}');"><i class="fas fa-copy"></i></span></p>
+<p><b>{{ site['ns2'] }}</b> <span class="copy" onclick="copyToClipboard('{{ site['ns2'] }}');"><i class="fas fa-copy"></i></span></p>
+</span></div>
+	<div class="form-group">
+<label class="control-label" for="createorderform-currency">Panel Currency</label>
+<select id="createorderform-currency" class="form-control" name="panel_currency" aria-required="true">
+{{ child_panel_currencies }}
+</select>
+	</div>
+	<div class="form-group">
+<label class="control-label" for="createorderform-username">Admin Username</label>
+<input type="text" id="createorderform-username" class="form-control" name="admin_username" aria-required="true" value="">
+	</div>
+
+
+<div class="form-group">
+    <label for="admin_password" class="control-label">Admin Password</label>
+<div class="input-group">
+<input type="text" id="childpanel_admin_password" name="admin_password" class="form-control" placeholder="" aria-describedby="basic-addon2" value="" autocomplete="off">
+<div class="input-group-append">
+<span  class="input-group-text bg-primary text-white" id="randomize_password"><i class="fa fa-random" aria-hidden="true"></i></span>
+  </div>
+</div>
+</div>
+
+
+
+
+	<div class="form-group">
+<label class="control-label" for="createorderform-password_confirm">Admin Confirm Password</label>
+<input type="text" id="childpanel_admin_confirm_password" class="form-control" name="admin_confirm_password" aria-required="true">
+	</div>
+	<div class="form-group">
+<label for="price" class="control-label">Price per month</label>
+<input type="text" class="form-control" value="{{site_base_currency_symbol}}{{" "}}{{site["childpanel_price"]}}" readonly>
+	</div>
+</div>
+	<div class="">
+<button class="btn btn-block btn-primary" type="submit">
+Submit order
+</button>
+	</div>
+</div>
+	</form>
+	
+
+
+<div class="col">
+
+
+
+<div class="orders-history__margin-table">
+<div class="table-bg component_table ">
+<br>
+<div class="table-responsive custom-table">
+
+  <table class="table ">
+    <thead>
+            <tr>
+              <th>#</th>
+              <th>Domain</th>
+              <th>Panel Currency</th>
+              <th class="nowrap">Purchased On</th>
+              <th class="nowrap">Status</th>
+<th>Renewal Date</th>
+            </tr>
+</thead>
+<tbody>
+
+{% for logs in chilpanel_logs %}
+<tr>
+<td>{{ logs['id'] }}</td>
+<td>{{ logs['domain'] }}</td>
+<td>{{ logs['child_panel_currency'] }}</td>
+<td class="nowrap">{{ logs['created_on'] }}</td>
+<td class="nowrap">
+{{ logs["child_panel_status"] }}
+</td>
+<td>{{logs["renewal_date"] }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+      </div>
+  </div></div></div>
+
+
+
+
+</div>
+
+
+
+
+</div>
+	
+
+{% include 'footer.twig' %}
