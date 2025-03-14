@@ -22,25 +22,21 @@ function customExceptionHandler($exception) {
 }
 set_exception_handler('customExceptionHandler');
 
-if(!defined('BASEPATH')) {
-    define('BASEPATH', TRUE);
-    
-    // Check if init.php exists
-    $init_file = ROOT_PATH . '/app/init.php';
-    if (!file_exists($init_file)) {
-        die("Error: Required file $init_file not found. Current directory: " . getcwd());
-    }
-    
-    try {
-        require_once $init_file;
-        require_once ROOT_PATH . '/app/session.php';
-    } catch (Exception $e) {
-        die("Error loading required files: " . $e->getMessage());
-    }
+// Check if init.php exists
+$init_file = ROOT_PATH . '/app/init.php';
+if (!file_exists($init_file)) {
+    die("Error: Required file $init_file not found. Current directory: " . getcwd());
+}
+
+try {
+    require_once $init_file;
+    require_once ROOT_PATH . '/app/session.php';
+} catch (Exception $e) {
+    die("Error loading required files: " . $e->getMessage());
 }
 
 // Get the requested admin page from URL
-$admin_page = isset($_GET['route']) ? $_GET['route'] : (isset($route[1]) ? $route[1] : "index");
+$admin_page = $_GET['route'] ?? ($route[1] ?? "index");
 
 // Special handling for login page
 if ($admin_page === 'login') {
@@ -53,9 +49,9 @@ if ($admin_page === 'login') {
 }
 
 // Check if user is logged in as admin
-if (!is_admin_logged_in()) {
+if (!function_exists('is_admin_logged_in') || !is_admin_logged_in()) {
     // Not logged in, redirect to login
-    header("Location: /admin/login");
+    header("Location: " . site_url('admin/login'));
     exit();
 }
 
