@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
 }
 
 // Check if user is logged in as admin
-if (!isset($_SESSION["msmbilisim_adminslogin"]) || $_SESSION["msmbilisim_adminslogin"] != 1) {
+if (!isset($_SESSION["msmbilisim_adminlogin"]) || $_SESSION["msmbilisim_adminlogin"] != 1) {
   $route[1] = "login";
   require admin_controller($route[1]);
   exit();

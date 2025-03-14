@@ -7,6 +7,9 @@ function admin_controller($controllerName){
 
 function admin_view($viewName){
   $viewName = $viewName;
+  if (!file_exists(PATH.'/admin/views/'.$viewName.'.php')) {
+    die("View not found: " . $viewName);
+  }
   return PATH.'/admin/views/'.$viewName.'.php';
 }
 
