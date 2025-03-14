@@ -1,7 +1,12 @@
 <?php
 
+// Define base constants
 if (!defined('BASEPATH')) {
     define('BASEPATH', true);
+}
+
+if (!defined('PATH')) {
+    define('PATH', realpath(dirname(__FILE__) . '/../'));
 }
 
 session_start();

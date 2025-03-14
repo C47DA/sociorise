@@ -1,6 +1,11 @@
 <?php
 use PragmaRX\Google2FA\Google2FA;
 
+// Ensure we have access to required functions and variables
+if (!function_exists('site_url') || !isset($conn) || !isset($settings)) {
+    require_once dirname(__FILE__) . '/../../app/init.php';
+}
+
 if (!defined('BASEPATH')) {
     define('BASEPATH', true);
 }
