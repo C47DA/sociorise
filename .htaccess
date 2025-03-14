@@ -7,7 +7,7 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 # Redirect to HTTPS
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_FILENAME} [L,R=301]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # PHP Settings
 php_value upload_max_filesize 64M
@@ -51,4 +51,6 @@ Options -Indexes
 
 # Handle admin routes
 RewriteRule ^admin/?$ admin/index.php [L]
-RewriteRule ^admin/(.*)$ admin/index.php?route=$1 [QSA,L] 
+RewriteRule ^admin/login/?$ admin/index.php?route=login [L]
+RewriteRule ^admin/([^/]+)/?$ admin/index.php?route=$1 [L]
+RewriteRule ^admin/([^/]+)/([^/]+)/?$ admin/index.php?route=$1/$2 [L] 
