@@ -2,16 +2,18 @@
 if(!defined('BASEPATH')) {
     define('BASEPATH', TRUE);
     require_once __DIR__ . '/../app/init.php';
+    require_once __DIR__ . '/../app/session.php';
 }
 
 // Check if user is logged in as admin
-if (!isset($_SESSION["msmbilisim_adminslogin"]) || $_SESSION["msmbilisim_adminslogin"] != 1) {
+if (!is_admin_logged_in()) {
     // Not logged in, redirect to login
-    $route[1] = "login";
-} else {
-    // Get the requested admin page from URL
-    $admin_page = isset($route[1]) ? $route[1] : "index";
+    header("Location: /admin/login");
+    exit();
 }
+
+// Get the requested admin page from URL
+$admin_page = isset($route[1]) ? $route[1] : "index";
 
 // Load the appropriate controller
 $controller_file = __DIR__ . '/controller/' . $admin_page . '.php';

@@ -7,11 +7,11 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 # Redirect to HTTPS
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_FILENAME} [L,R=301]
 
 # PHP Settings
-php_value upload_max_filesize 128M
-php_value post_max_size 128M
+php_value upload_max_filesize 64M
+php_value post_max_size 64M
 php_value max_execution_time 300
 php_value max_input_time 300
 php_value memory_limit 256M
@@ -27,7 +27,7 @@ Header set Referrer-Policy "strict-origin-when-cross-origin"
 # Handle Front Controller
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule ^ index.php [L]
 
 # Protect sensitive files
 <FilesMatch "^\.">
@@ -47,4 +47,8 @@ Options +FollowSymLinks
 DirectoryIndex index.php
 
 # Prevent directory listing
-Options -Indexes 
+Options -Indexes
+
+# Handle admin routes
+RewriteRule ^admin/?$ admin/index.php [L]
+RewriteRule ^admin/(.*)$ admin/index.php?route=$1 [QSA,L] 
