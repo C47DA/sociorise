@@ -26,5 +26,6 @@ jobs:
           ftp_username: ${{ secrets.CPANEL_USERNAME }}
           ftp_password: ${{ secrets.CPANEL_PASSWORD }}
           local_source_dir: "."
-          dist_target_dir: "public_html"
+          dist_target_dir: "/home/socioris/public_html"
+          delete: "false"
           exclude: "^.git/|^.github/|^node_modules/|.env|.env.example|.gitignore|README.md" 
