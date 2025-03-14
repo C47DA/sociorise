@@ -16,7 +16,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.1'  # Updated to PHP 8.1 for better compatibility
           extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, zip, fileinfo, gd, curl, json, session
       
       - name: Install lftp
