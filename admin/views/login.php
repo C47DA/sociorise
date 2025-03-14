@@ -42,13 +42,14 @@ body {font-family: Arial, sans-serif;}
     <div class="form-box"> 
     
      
-     <?php if( $success ): ?>
-<div class="alert alert-success"><?php echo $successText; ?></div>
+     <?php if( isset($success) && $success ): ?>
+        <div class="alert alert-success"><?php echo htmlspecialchars($successText); ?></div>
+     <?php endif; ?>
 
-<?php endif; ?>
-<?php if( $error ): ?>
-<div class="alert alert-danger"><?php echo $errorText; ?></div>
-<?php endif; ?>
+     <?php if( isset($error) && $error ): ?>
+        <div class="alert alert-danger"><?php echo htmlspecialchars($errorText); ?></div>
+     <?php endif; ?>
+
      <form name="login-form" action="#" method="post"> 
       <div class"input-group"=""> 
        <div class="input-field"> 

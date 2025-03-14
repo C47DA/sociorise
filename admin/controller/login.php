@@ -10,14 +10,17 @@ if (!defined('BASEPATH')) {
     define('BASEPATH', true);
 }
 
+// Initialize variables
+$error = false;
+$errorText = "";
+$success = false;
+$successText = "";
+
 // If already logged in, redirect to admin dashboard
 if (isset($_SESSION["msmbilisim_adminslogin"]) && $_SESSION["msmbilisim_adminslogin"] == 1) {
     header("Location: " . site_url('admin'));
     exit();
 }
-
-$error = false;
-$errorText = "";
 
 if ($_POST) {
     $username = htmlspecialchars($_POST["username"]);
