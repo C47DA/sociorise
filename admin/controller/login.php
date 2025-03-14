@@ -1,8 +1,8 @@
 <?php
 use PragmaRX\Google2FA\Google2FA;
 
-if(!defined('BASEPATH')) {
-   die('Direct access to the script is not allowed');
+if (!defined('BASEPATH')) {
+    define('BASEPATH', true);
 }
 
 // If already logged in, redirect to admin dashboard

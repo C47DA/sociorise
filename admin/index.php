@@ -3,8 +3,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Define the root path
+// Define the root path and base path
 define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));
+if (!defined('BASEPATH')) {
+    define('BASEPATH', true);
+}
 
 // Set include path
 set_include_path(get_include_path() . PATH_SEPARATOR . ROOT_PATH);

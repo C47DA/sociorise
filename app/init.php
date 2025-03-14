@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('BASEPATH')) {
+    define('BASEPATH', true);
+}
+
 session_start();
 ob_start();
 
