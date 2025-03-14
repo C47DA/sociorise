@@ -22,6 +22,9 @@ jobs:
       - name: Install lftp
         run: sudo apt-get install lftp
         
+      - name: Delete composer.lock
+        run: rm -f composer.lock
+        
       - name: Install Composer
         run: |
           php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -29,7 +32,9 @@ jobs:
           php -r "unlink('composer-setup.php');"
           
       - name: Install Dependencies
-        run: composer install --no-dev --optimize-autoloader
+        run: |
+          composer clear-cache
+          composer update --no-dev --optimize-autoloader --prefer-dist
         
       - name: Debug Info
         run: |
