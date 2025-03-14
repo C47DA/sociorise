@@ -63,12 +63,12 @@ function require_admin_login() {
             // Clear any existing session data
             session_unset();
             session_destroy();
-            header("Location: /admin/login");
+            header("Location: " . site_url('admin/login'));
             exit();
         }
     } catch (Exception $e) {
         error_log("Error in require_admin_login: " . $e->getMessage());
-        header("Location: /admin/login");
+        header("Location: " . site_url('admin/login'));
         exit();
     }
 }
@@ -84,11 +84,11 @@ function admin_logout() {
         setcookie("a_id", '', time() - 3600, '/', null, null, true);
         setcookie("a_password", '', time() - 3600, '/', null, null, true);
         
-        header("Location: /admin/login");
+        header("Location: " . site_url('admin/login'));
         exit();
     } catch (Exception $e) {
         error_log("Error in admin_logout: " . $e->getMessage());
-        header("Location: /admin/login");
+        header("Location: " . site_url('admin/login'));
         exit();
     }
 } 

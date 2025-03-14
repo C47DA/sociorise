@@ -2,15 +2,30 @@
 
 function admin_controller($controllerName){
   $controllerName = $controllerName;
-  return PATH.'/admin/controller/'.$controllerName.'.php';
+  $file_path = PATH.'/admin/controller/'.$controllerName.'.php';
+  
+  // Check if file exists
+  if (!file_exists($file_path)) {
+    error_log("Admin controller not found: " . $file_path);
+  }
+  
+  return $file_path;
 }
 
 function admin_view($viewName){
   $viewName = $viewName;
-  if (!file_exists(PATH.'/admin/views/'.$viewName.'.php')) {
-    die("View not found: " . $viewName);
+  $file_path = PATH.'/admin/views/'.$viewName.'.php';
+  
+  // Check if file exists
+  if (!file_exists($file_path)) {
+    error_log("Admin view not found: " . $file_path);
+    // Return a fallback view if the requested one doesn't exist
+    if ($viewName !== '404' && file_exists(PATH.'/admin/views/404.php')) {
+      return PATH.'/admin/views/404.php';
+    }
   }
-  return PATH.'/admin/views/'.$viewName.'.php';
+  
+  return $file_path;
 }
 
 function servicePackageType($type){
