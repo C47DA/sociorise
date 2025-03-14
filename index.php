@@ -8,18 +8,23 @@ use PHPMailer\PHPMailer\Exception;
 require __DIR__ . '/vendor/autoload.php';
 $mail = new PHPMailer(true);
 require __DIR__ . '/app/init.php';
+
+// Parse the request URI
 $first_route = explode('?', $_SERVER["REQUEST_URI"]);
-$gets = explode('&', $first_route[1]);
-foreach ($gets as $get) {
-  $get = explode('=', $get);
-  $_GET[$get[0]] = $get[1];
-}
-
-//require __DIR__.'/logger.php';
-
-
 $routes = array_filter(explode('/', $first_route[0]));
 
+// Handle query parameters
+if (isset($first_route[1])) {
+  $gets = explode('&', $first_route[1]);
+  foreach ($gets as $get) {
+    $get = explode('=', $get);
+    if (isset($get[0]) && isset($get[1])) {
+      $_GET[$get[0]] = $get[1];
+    }
+  }
+}
+
+// Set up routing
 if (SUBFOLDER === true) {
   array_shift($routes);
   $route = $routes;
@@ -28,6 +33,16 @@ if (SUBFOLDER === true) {
     $route[$index - 1] = $value;
   endforeach;
 }
+
+// Handle admin routes
+if (isset($route[0]) && $route[0] == 'admin') {
+  require __DIR__ . '/admin/index.php';
+  exit();
+}
+
+//require __DIR__.'/logger.php';
+
+
 $panel_orders = countRow(["table" => "orders"]);
 
 if ($_GET["lang"] && $user['auth'] != 1):
