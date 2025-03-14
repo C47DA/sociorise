@@ -23,44 +23,44 @@ $site_curr = $site_curr->fetch(PDO::FETCH_ASSOC)["currency_hash"];
 return $site_curr;
 }
 
-if( $_COOKIE["u_id"] && $_COOKIE["u_login"] && $_COOKIE["u_password"] ):
+if( isset($_COOKIE["u_id"]) && isset($_COOKIE["u_login"]) && isset($_COOKIE["u_password"]) ):
 
   $row = $conn->prepare("SELECT * FROM clients WHERE client_id=:id");
   $row->execute(array("id"=>$_COOKIE["u_id"] ));
   $row = $row->fetch(PDO::FETCH_ASSOC);
   
-  $password = $row["password"];
+  if($row) {
+    $password = $row["password"];
 
-  if( @$_COOKIE["u_password"] == $password ):
-    $_SESSION["msmbilisim_userlogin"]      = 1;
-    $_SESSION["msmbilisim_userid"]         = $row["client_id"];
-    $_SESSION["msmbilisim_userpass"]       = $row["password"];
-      if( $access["admin_access"] ):
+    if( @$_COOKIE["u_password"] == $password ):
+      $_SESSION["msmbilisim_userlogin"]      = 1;
+      $_SESSION["msmbilisim_userid"]         = $row["client_id"];
+      $_SESSION["msmbilisim_userpass"]       = $row["password"];
+      if( isset($access["admin_access"]) && $access["admin_access"] ):
         $_SESSION["msmbilisim_adminlogin"] = 1;
-$_SESSION["currency_hash"] = get_currency_hash($row["currency_type"]);
+        $_SESSION["currency_hash"] = get_currency_hash($row["currency_type"]);
 
-
-if(!$_COOKIE["currency_hash"]){
-    $_SESSION["currency_hash"] = get_currency_hash($row["currency_type"]);
-    setcookie("currency_hash",get_currency_hash($row["currency_type"]),strtotime('+28 days'),'/',null,null,true);
-}
+        if(!isset($_COOKIE["currency_hash"])){
+            $_SESSION["currency_hash"] = get_currency_hash($row["currency_type"]);
+            setcookie("currency_hash",get_currency_hash($row["currency_type"]),strtotime('+28 days'),'/',null,null,true);
+        }
       endif;
-  else:
-    unset($_SESSION["msmbilisim_userlogin"]);
-    unset($_SESSION["msmbilisim_userid"]);
-    unset($_SESSION["msmbilisim_userpass"]);
-    unset($_SESSION["msmbilisim_adminlogin"]);
-    unset($_SESSION);
-    setcookie("u_id", $row["client_id"], time()-(60*60*24*7), '/', null, null, true );
-    setcookie("u_password", $row["password"], time()-(60*60*24*7), '/', null, null, true );
-    setcookie("u_login", 'ok', time()-(60*60*24*7), '/', null, null, true );
-    setcookie("currency_hash",get_currency_hash($row["currency_type"]),time() - (60*60*24*7),'/',null,null,true);
-    session_destroy();
-  endif;
-
+    else:
+      unset($_SESSION["msmbilisim_userlogin"]);
+      unset($_SESSION["msmbilisim_userid"]);
+      unset($_SESSION["msmbilisim_userpass"]);
+      unset($_SESSION["msmbilisim_adminlogin"]);
+      unset($_SESSION);
+      setcookie("u_id", $row["client_id"], time()-(60*60*24*7), '/', null, null, true );
+      setcookie("u_password", $row["password"], time()-(60*60*24*7), '/', null, null, true );
+      setcookie("u_login", 'ok', time()-(60*60*24*7), '/', null, null, true );
+      setcookie("currency_hash",get_currency_hash($row["currency_type"]),time() - (60*60*24*7),'/',null,null,true);
+      session_destroy();
+    endif;
+  }
 endif;
 
-if( $_COOKIE["a_id"] && $_COOKIE["a_login"] && $_COOKIE["a_password"] ):
+if( isset($_COOKIE["a_id"]) && isset($_COOKIE["a_login"]) && isset($_COOKIE["a_password"]) ):
 
   $admin      = $conn->prepare("SELECT * FROM admins WHERE admin_id=:id");
   $admin      ->execute(array("id"=>$_COOKIE["a_id"] ));
@@ -111,8 +111,11 @@ $panel->execute(array("id"=>1));
 $panel = $panel->fetch(PDO::FETCH_ASSOC);
 define('THEME', $settings["site_theme"]);
 
-$loader   = new Twig_Loader_Filesystem(__DIR__.'/views/'.THEME);
-$twig     = new Twig_Environment($loader, ['autoescape' => false]);
+// Load Twig
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$loader   = new Twig\Loader\FilesystemLoader(__DIR__.'/views/'.THEME);
+$twig     = new Twig\Environment($loader, ['autoescape' => false]);
 
 function is_user_currency_enable($currency_code){
 global $conn;
@@ -123,76 +126,78 @@ $is_enable->execute(array(
 $is_enable = $is_enable->fetch(PDO::FETCH_ASSOC)["is_enable"];
 return $is_enable;
 }
-$row = $conn->prepare("SELECT * FROM clients WHERE client_id=:id");
-  $row->execute(array("id"=>$_COOKIE["u_id"] ));
-  $row = $row->fetch(PDO::FETCH_ASSOC);
-if(is_user_currency_enable($row["currency_type"]) == "0"){
 
-$update = $conn->prepare("UPDATE clients SET currency_type=:currency_type WHERE client_id=:id ");
-
- $update = $update->execute(array("id"=>$row["client_id"],"currency_type"=>$settings["site_base_currency"]));
+if(isset($_COOKIE["u_id"])) {
+    $row = $conn->prepare("SELECT * FROM clients WHERE client_id=:id");
+    $row->execute(array("id"=>$_COOKIE["u_id"] ));
+    $row = $row->fetch(PDO::FETCH_ASSOC);
+    
+    if($row && is_user_currency_enable($row["currency_type"]) == "0"){
+        $update = $conn->prepare("UPDATE clients SET currency_type=:currency_type WHERE client_id=:id ");
+        $update = $update->execute(array("id"=>$row["client_id"],"currency_type"=>$settings["site_base_currency"]));
+    }
 }
 
-
-if($settings["site_currency_converter"] == "0"){
-if($row["currency_type"] !== $settings["site_base_currency"]){
-$update = $conn->prepare("UPDATE clients SET currency_type=:currency_type WHERE client_id=:id ");
-$update = $update->execute(array("id"=>$row["client_id"],"currency_type"=>$settings["site_base_currency"]));
+if($settings["site_currency_converter"] == "0" && isset($_COOKIE["u_id"])){
+    $row = $conn->prepare("SELECT * FROM clients WHERE client_id=:id");
+    $row->execute(array("id"=>$_COOKIE["u_id"] ));
+    $row = $row->fetch(PDO::FETCH_ASSOC);
+    
+    if($row && $row["currency_type"] !== $settings["site_base_currency"]){
+        $update = $conn->prepare("UPDATE clients SET currency_type=:currency_type WHERE client_id=:id ");
+        $update = $update->execute(array("id"=>$row["client_id"],"currency_type"=>$settings["site_base_currency"]));
+    }
 }
+
+$user = isset($_SESSION["msmbilisim_userid"]) ? $conn->prepare("SELECT * FROM clients WHERE client_id=:id") : null;
+if($user) {
+    $user->execute(array("id"=>$_SESSION["msmbilisim_userid"] ));
+    $user = $user->fetch(PDO::FETCH_ASSOC);
+    $user['auth'] = $_SESSION["msmbilisim_userlogin"];
 }
 
-$user = $conn->prepare("SELECT * FROM clients WHERE client_id=:id");
-$user->execute(array("id"=>$_SESSION["msmbilisim_userid"] ));
-$user = $user->fetch(PDO::FETCH_ASSOC);
-$user['auth']     = $_SESSION["msmbilisim_userlogin"];
-if(  $user["auth"]  != 1):
-$user = $conn->prepare("SELECT * FROM clients WHERE passwordreset_token=:id");
-$user->execute(array("id"=> $route[1] ));
-$user = $user->fetch(PDO::FETCH_ASSOC);
-
+if(!isset($user) || $user["auth"] != 1):
+    $user = $conn->prepare("SELECT * FROM clients WHERE passwordreset_token=:id");
+    $user->execute(array("id"=> isset($route[1]) ? $route[1] : '' ));
+    $user = $user->fetch(PDO::FETCH_ASSOC);
 endif; 
 
-
-$admin = $conn->prepare("SELECT * FROM admins WHERE admin_id=:id");
-$admin->execute(array("id"=>$_SESSION["msmbilisim_adminid"] ));
-$admin = $admin->fetch(PDO::FETCH_ASSOC);
-$admin['auth']     = $_SESSION["msmbilisim_adminslogin"];
-$admin["access"]   = json_decode($admin["access"],true);
-
-
-
-
+$admin = isset($_SESSION["msmbilisim_adminid"]) ? $conn->prepare("SELECT * FROM admins WHERE admin_id=:id") : null;
+if($admin) {
+    $admin->execute(array("id"=>$_SESSION["msmbilisim_adminid"] ));
+    $admin = $admin->fetch(PDO::FETCH_ASSOC);
+    $admin['auth'] = $_SESSION["msmbilisim_adminslogin"];
+    $admin["access"] = json_decode($admin["access"],true);
+}
 
 $currencies = $conn->prepare("SELECT * FROM currencies WHERE is_enable=1");
 $currencies->execute();
 $currencies = $currencies->fetchAll(PDO::FETCH_ASSOC);
-$currencies_item .= "";
+$currencies_item = "";
 for($i = 0;$i < count($currencies);$i++){
-$x = $currencies[$i];
-$currency_code = $x["currency_code"];
-$currency_sym = $x["currency_symbol"];
-if($currency_code == $user["currency_type"]){
-    $currencies_item .= '';
-}else {
-$currencies_item .= '<li class="balance-dropdown__item">
-<a href="javascript:void(0)" class="currencies-item balance-dropdown__link" data-rate-key="'.$currency_code.'" data-rate-symbol="'.$currency_sym.'">'.$currency_code.' '.$currency_sym.'</a></li>';
-}
-
+    $x = $currencies[$i];
+    $currency_code = $x["currency_code"];
+    $currency_sym = $x["currency_symbol"];
+    if($currency_code == (isset($user["currency_type"]) ? $user["currency_type"] : '')){
+        $currencies_item .= '';
+    }else {
+        $currencies_item .= '<li class="balance-dropdown__item">
+        <a href="javascript:void(0)" class="currencies-item balance-dropdown__link" data-rate-key="'.$currency_code.'" data-rate-symbol="'.$currency_sym.'">'.$currency_code.' '.$currency_sym.'</a></li>';
+    }
 }
 
 $offline_currencies = $conn->prepare("SELECT * FROM currencies WHERE is_enable=1 AND id!=1");
 $offline_currencies->execute ();
 $offline_currencies = $offline_currencies->fetchAll(PDO::FETCH_ASSOC);
-$offline_currencies_item .= "";
-$offline_currencies_item_with_li .= "";
+$offline_currencies_item = "";
+$offline_currencies_item_with_li = "";
 for($i = 0;$i < count($offline_currencies);$i++){
-$x = $offline_currencies[$i];
-$currency_code = $x["currency_code"];
-$currency_sym = $x["currency_symbol"];
-$offline_currencies_item .= '<a class="dropdown-item" href="service/'.$currency_code.'">'.$currency_code.' '.$currency_sym.'</a>';
-$offline_currencies_item_with_li .=  '<li><a class="dropdown-item" href="service/'.$currency_code.'">'.$currency_code.' '.$currency_sym.'</a></li>';
+    $x = $offline_currencies[$i];
+    $currency_code = $x["currency_code"];
+    $currency_sym = $x["currency_symbol"];
+    $offline_currencies_item .= '<a class="dropdown-item" href="service/'.$currency_code.'">'.$currency_code.' '.$currency_sym.'</a>';
+    $offline_currencies_item_with_li .=  '<li><a class="dropdown-item" href="service/'.$currency_code.'">'.$currency_code.' '.$currency_sym.'</a></li>';
 }
-
 
 foreach ( glob(__DIR__.'/helper/*.php') as $helper ) {
   require $helper;

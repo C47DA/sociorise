@@ -1,6 +1,6 @@
 {
     "require": {
-        "twig/twig": "^2.0",
+        "twig/twig": "^3.0",
         "phpmailer/phpmailer": "^6.7",
         "xfoxawy/2checkout": "dev-master",
         "mollie/mollie-api-php": "^2.0",
@@ -17,6 +17,11 @@
     "config": {
         "platform": {
             "php": "7.4.33"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
         }
     }
 }
